@@ -18,13 +18,14 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
+    console.log(jest.fn())
   });
 
-  /* it(`should have as title 'demostore'`, () => {
+  it(`should have as title 'demostore'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app.title).toEqual('demostore');
-  }); */
+  });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
@@ -32,4 +33,6 @@ describe('AppComponent', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('.content span')?.textContent).toContain('demostore app is running!');
   });
+
+
 });
