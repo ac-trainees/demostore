@@ -18,7 +18,6 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
-    console.log(jest.fn())
   });
 
   it(`should have as title 'demostore'`, () => {
