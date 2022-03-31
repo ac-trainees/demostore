@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testExecutions version="1">
+  <file path="/Users/natalija/Documents/Angular_Project_Shop2/demostore/src/app/app.component.spec.ts">
+    <testCase name="AppComponent should create the app" duration="61"/>
+    <testCase name="AppComponent should have as title &apos;demostore&apos;" duration="14"/>
+    <testCase name="AppComponent should render title" duration="13"/>
+  </file>
+</testExecutions>
