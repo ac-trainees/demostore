@@ -21,6 +21,10 @@
     "lib": [
       "es2020",
       "dom"
+    ],
+    "types": [
+      "jest",
+      "node"
     ]
   },
   "angularCompilerOptions": {
@@ -29,8 +33,5 @@
     "strictInputAccessModifiers": true,
     "strictTemplates": true
   },
-  "types": [
-    "jest"
-  ],
   "esModuleInterop": true
 }
