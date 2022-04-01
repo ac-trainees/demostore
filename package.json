@@ -44,9 +44,14 @@
     "collectCoverageFrom": [
       "./src/**"
     ],
+    "coveragePathIgnorePatterns": [
+      "<rootDir>/src/main.ts",
+      "<rootDir>/src/polyfills.ts",
+      "<rootDir>/src/environments/"
+    ],
     "coverageThreshold": {
       "global": {
-        "lines": 90
+        "lines": 50
       }
     }
   }
