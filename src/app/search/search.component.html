@@ -1,0 +1,20 @@
+<div class="container-bg">
+<div class="t-100">
+    <h3>Your search parameters: {{this.query}}</h3>
+    <hr>
+    <div class="text-center">   
+        <h2>Products</h2>
+    </div>
+    <div class="wrapper-products t-100">
+        <div *ngFor="let product of products" (click)='toProductDetail(product.id)' data-id="product.id">
+              <div class="card m-3" style="width: 16rem;">
+                <img [src]="product.icon" class="card-img-top" alt="icon">
+                <div class="card-body">
+                  <h1 class="card-title">{{product.title}}</h1>
+                  <p class="card-text">{{product.teaser}}</p>
+                </div>
+              </div>
+        </div>
+    </div>
+</div>
+</div>

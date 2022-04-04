@@ -1,0 +1,24 @@
+.card-wrapper {
+    width: 300px;
+    height: 250px;
+    border: 1px solid black;
+}
+
+/////Card Products
+.wrapper-products {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 100%;
+    margin: 0 auto;
+}
+.t-100 {
+    margin-top: 100px;
+}
+.card:hover {
+    background-color: rgba(128, 128, 128, 0.11);
+    height: 500px !important;
+}
+.card {
+    height: 500px !important;
+}
