@@ -1,8 +1,7 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "cli": {
-    "analytics": false,
-    "defaultCollection": "@angular-eslint/schematics"
+    "analytics": false
   },
   "version": 1,
   "newProjectRoot": "projects",
@@ -94,19 +93,8 @@
         "test": {
           "builder": "@angular-builders/jest:run",
           "options": {
-            "jestConfig": [
-              "jest.config.js"
-            ],
+            "jestConfig": ["jest.config.js"],
             "tsConfig": "tsconfig.spec.json"
-          }
-        },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": [
-              "src/**/*.ts",
-              "src/**/*.html"
-            ]
           }
         }
       }
