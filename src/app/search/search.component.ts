@@ -19,10 +19,31 @@ export class SearchComponent implements OnInit, AfterViewInit {
 
   errorMessage: any;
 
+  isDataProvided: boolean = true;
+
   constructor(private route: ActivatedRoute,
                 private router: Router,
                 private productService: ProductService,
                 private elementRef: ElementRef){}
+
+
+  ///////Input
+
+  private _searchDetails: string = '';
+
+  get searchDetails(): string {
+    return this._searchDetails;
+  }
+
+  set searchDetails(value: string) {
+    this._searchDetails = value;
+    console.log('search: ', this._searchDetails)
+  }
+  onSearch(): void {
+    this.router.navigate(["search", this._searchDetails]);
+  }
+
+  ///////////////
 
   toProductDetail(id: number): void {
     this.router.navigate(["product", id]);
@@ -32,13 +53,26 @@ export class SearchComponent implements OnInit, AfterViewInit {
     this.query = this.route.snapshot.paramMap.get('query');
     console.log('query: ', this.query)
 
-    this.sub = this.productService.getProducts().subscribe({
-      next: products => { 
-          this.products = products
-      },
-      error: err => this.errorMessage = err
-    });
-  }
+    this.sub = this.productService.productData$.subscribe(
+      data => { 
+          if(data.length === 0) {
+              this.isDataProvided = false;
+          } else {
+              this.products = data;
+              this.isDataProvided = true;
+          }
+      }
+  ) 
+
+  if(this.isDataProvided === false) {
+      this.productService.getProducts().subscribe({
+          next: data => {
+              this.products = data;
+              }
+          })
+        }
+    }
+  
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();

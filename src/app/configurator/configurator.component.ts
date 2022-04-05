@@ -13,7 +13,6 @@ export class ConfiguratorComponent implements OnInit {
 
   constructor(private route: ActivatedRoute){}
   
-
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get("id"));
     this.productId = id;
