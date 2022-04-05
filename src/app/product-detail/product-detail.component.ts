@@ -17,8 +17,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
   sub!: Subscription;
 
-  isDataProvided: boolean = true;
-
   selectedProduct: IProduct | undefined;
 
   constructor(private route: ActivatedRoute,
@@ -27,30 +25,24 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get("id"));
     this.productId = id;
-    console.log('Product ID', this.productId)
 
     this.sub = this.productService.productData$.subscribe(
       data => { 
-          if(data.length === 0) {
-              this.isDataProvided = false;
-          } else {
-              this.products = data;
-              this.selectedProduct = this.products.find(el => el.id == id);
-              this.isDataProvided = true;
-          }
-      }
-  ) 
-
-  if(this.isDataProvided === false) {
-      this.productService.getProducts().subscribe({
-          next: data => {
-              this.products = data;
-              this.selectedProduct = this.products.find(el => el.id == id);
-              console.log('data: ', this.selectedProduct)
+              if(data.length === 0) {
+                this.productService.getProducts().subscribe({
+                  next: data => {
+                      this.products = data;
+                      this.selectedProduct = this.products.find(el => el.id === id);
+                    }
+                  })
+              } else {
+                this.products = data;
+                this.selectedProduct = this.products.find(el => el.id === id);
               }
-          })
-        }
+          }
+      ) 
     }
+
     ngOnDestroy(): void {
       this.sub.unsubscribe();
     }

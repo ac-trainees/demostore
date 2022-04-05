@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
 import { RouterModule } from '@angular/router';
-import { FirstPageComponent } from './first-page/first-page.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
 import { SearchComponent } from './search/search.component';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
@@ -21,7 +21,8 @@ import { HttpClientModule } from '@angular/common/http';
     SearchComponent,
     ProductDetailComponent,
     AppComponent,
-    ConfiguratorComponent
+    ConfiguratorComponent,
+    LandingPageComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +33,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatCardModule,
     HttpClientModule,
     RouterModule.forRoot([
-      {path: '', component: FirstPageComponent},
+      {path: '', component: LandingPageComponent},
       {path: 'search', component: SearchComponent},
       {path: 'search/:query', component: SearchComponent},
       {path: 'product/:id', component: ProductDetailComponent},

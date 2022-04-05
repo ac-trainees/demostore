@@ -16,6 +16,5 @@ export class ConfiguratorComponent implements OnInit {
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get("id"));
     this.productId = id;
-    console.log('configurator productId: ', this.productId)
   }
 }

@@ -6,11 +6,9 @@ import { Router } from '@angular/router';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
 
   constructor(private router: Router) {}
-
-  showDropdown: boolean = false;
 
   private _searchDetails: string = '';
 
@@ -20,20 +18,10 @@ export class HeaderComponent implements OnInit {
 
   set searchDetails(value: string) {
     this._searchDetails = value;
-    console.log('search: ', this._searchDetails)
-  }
-
-  toggleDropdown(): void {
-    this.showDropdown = !this.showDropdown;
-    console.log(this.showDropdown)
   }
 
   onSearch(): void {
     this.router.navigate(["search", this._searchDetails]);
-  }
-
-  ngOnInit(): void {
-
   }
 
 }
