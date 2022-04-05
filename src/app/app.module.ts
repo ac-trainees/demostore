@@ -5,20 +5,18 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
 
-import { LangSelectorModule } from './components/lang-selector/lang-selector.module';
-import { CommonModule } from '@angular/common';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent
+  ],
   imports: [
     BrowserModule,
-    CommonModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatSliderModule,
-    LangSelectorModule,
+    MatSliderModule
   ],
   providers: [],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
