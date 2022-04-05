@@ -10,8 +10,8 @@ export class LangSelectorComponent implements OnInit {
   lang!: string;
 
   allLanguages: { short: string; long: string }[] = [
-    { short: 'EN', long: 'United States' },
-    { short: 'DE', long: 'Germany' },
+    { short: 'en', long: 'United States' },
+    { short: 'de', long: 'Germany' },
   ];
 
   constructor(public langService: LanguageService) {}
