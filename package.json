@@ -10,11 +10,6 @@
     "lint": "ng lint",
     "postinstall": "husky install"
   },
-  "husky": {
-    "hooks": {
-      "pre-push": "ng lint && ng test"
-    }
-  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~13.3.0",
