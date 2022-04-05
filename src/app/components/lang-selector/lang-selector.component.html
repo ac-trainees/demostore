@@ -1,0 +1,13 @@
+<button mat-mini-fab color="primary" [matMenuTriggerFor]="menu">
+  {{ lang.toLocaleUpperCase() }}
+</button>
+
+<mat-menu #menu="matMenu">
+  <button
+    mat-menu-item
+    (click)="setLang(language.short)"
+    *ngFor="let language of allLanguages"
+  >
+    {{ language.long }}
+  </button>
+</mat-menu>
