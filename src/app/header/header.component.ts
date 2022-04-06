@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ProductService } from '../api/products.service';
+
 
 @Component({
   selector: 'app-header',
@@ -18,6 +20,7 @@ export class HeaderComponent {
 
   set searchDetails(value: string) {
     this._searchDetails = value;
+    console.log('this.searchdetails: ', this._searchDetails)
   }
 
   onSearch(): void {

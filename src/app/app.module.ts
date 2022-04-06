@@ -13,6 +13,11 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
 import { HeaderComponent } from './header/header.component';
 import { ConfiguratorComponent } from './configurator/configurator.component';
 import { HttpClientModule } from '@angular/common/http';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+
+
 
 @NgModule({
   declarations: [
@@ -31,7 +36,10 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     MatSliderModule,
     MatCardModule,
+    MatPaginatorModule,
     HttpClientModule,
+    MatFormFieldModule,
+    MatSelectModule, 
     RouterModule.forRoot([
       {path: '', component: LandingPageComponent},
       {path: 'search', component: SearchComponent},

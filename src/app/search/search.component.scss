@@ -1,17 +1,27 @@
-.wrapper-products {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: space-around;
-    width: 100%;
-    margin: 0 auto;
-}
-.t-100 {
-    margin-top: 100px;
-}
 .card {
-    width: 16rem;
+    width: 100%;
+    max-width: 500px;
+    min-width: 300px;
+    height: 220px;
+    margin-bottom: 8px;
 }
 .card:hover {
-    background-color: rgba(128, 128, 128, 0.11);
+    background-color: rgba(202, 199, 199, 0.11);
+}
+.mat-elevation-z1 {
+    box-shadow: 0 0.625rem 1.25rem #0000000d;
+}
+
+mat-card::ng-deep.mat-card-title {
+    font-size: 18px;
+}
+mat-card::ng-deep.mat-card-content {
+    padding-top: 40px;
+    color: grey;
+}
+mat-card::ng-deep.mat-card-sm-image {
+    margin-left: 10px;
+}
+mat-form-field::ng-deep.mat-form-field-flex {
+    background-color: white;
 }

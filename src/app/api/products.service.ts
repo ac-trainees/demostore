@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable, Subject } from "rxjs";
 import { catchError, tap, throwError } from "rxjs";
@@ -31,6 +31,15 @@ export class ProductService {
             catchError(this.handleError)
           );
       }
+
+    getProductsByQuery(queryParams: string): Observable<any> {
+
+        return this.http.get<any>(this.productUrl + '/search/' + queryParams)
+            .pipe(
+                tap(data => console.log('queryParams: ', data)),
+                catchError(this.handleError)
+            )
+    }
 
     private handleError(err: HttpErrorResponse): Observable<never>{
         let errorMessage = '';
