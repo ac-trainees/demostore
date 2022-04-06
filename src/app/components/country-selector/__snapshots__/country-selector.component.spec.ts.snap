@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CountrySelectorComponent should create 1`] = `
+<app-country-selector
+  __ngContext__={[Function LRootView]}
+  allCountrys={[Function Array]}
+  country={[Function String]}
+  countryService={[Function Object]}
+  filteredCountrys={[Function Array]}
+>
+  <button
+    aria-haspopup="true"
+    class="mat-focus-indicator mat-menu-trigger mat-mini-fab mat-button-base mat-primary"
+    color="primary"
+    mat-mini-fab=""
+  >
+    <span
+      class="mat-button-wrapper"
+    >
+       ERROR
+    </span>
+    <span
+      class="mat-ripple mat-button-ripple mat-button-ripple-round"
+      matripple=""
+    />
+    <span
+      class="mat-button-focus-overlay"
+    />
+  </button><mat-menu>
+  </mat-menu>
+</app-country-selector>
+`;
