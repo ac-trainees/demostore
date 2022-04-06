@@ -1,0 +1,17 @@
+<div class="card mb-3 top-100 mx-auto" *ngIf="selectedProduct">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img [src]="selectedProduct.icon" class="img-fluid rounded-start" alt="icon">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">{{selectedProduct.title}}</h5>
+          <p class="card-text">{{selectedProduct.teaser}}</p>
+        <a href="#" class="btn btn-primary" [routerLink]="['/configurator', selectedProduct.id]">Configurate</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  

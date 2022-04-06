@@ -1,0 +1,17 @@
+.wrapper-products {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    margin: 0 auto;
+}
+.t-100 {
+    margin-top: 100px;
+}
+.card {
+    width: 16rem;
+}
+.card:hover {
+    background-color: rgba(128, 128, 128, 0.11);
+}
