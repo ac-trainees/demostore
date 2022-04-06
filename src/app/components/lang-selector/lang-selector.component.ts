@@ -1,5 +1,5 @@
+import { LanguageService } from '../../services/language.service';
 import { Component, OnInit } from '@angular/core';
-import { LanguageService } from 'src/app/services/language.service';
 
 @Component({
   selector: 'app-lang-selector',
@@ -7,21 +7,31 @@ import { LanguageService } from 'src/app/services/language.service';
   styleUrls: ['./lang-selector.component.scss'],
 })
 export class LangSelectorComponent implements OnInit {
-  lang!: string;
+  country!: string;
+  seachValue!: string;
 
-  allLanguages: { short: string; long: string }[] = [
+  allCountrys: { short: string; long: string }[] = [
     { short: 'en', long: 'United States' },
     { short: 'de', long: 'Germany' },
   ];
 
+  filteredCountrys!: { short: string; long: string }[];
+
   constructor(public langService: LanguageService) {}
 
   ngOnInit(): void {
-    this.lang = this.langService.language;
+    this.country = this.langService.language;
+    this.filteredCountrys = this.allCountrys;
   }
 
-  setLang(shortLang: string): void {
-    this.lang = shortLang;
-    this.langService.setService(shortLang);
+  filterCountrys() {
+    this.filteredCountrys = this.allCountrys.filter((element) => {
+      return element.long.includes(this.seachValue);
+    });
+  }
+
+  setLang(shortCountry: string): void {
+    this.country = shortCountry;
+    this.langService.setService(shortCountry);
   }
 }
