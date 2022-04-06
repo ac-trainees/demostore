@@ -1,24 +1,25 @@
 <div class="container-bg">
-<div class="t-100">
+  <div class="t-100">
     <h3>Your search parameters: {{this.query}}</h3>
     <form class="d-flex">
-        <input [(ngModel)]='searchDetails' name="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button (click)="onSearch()" class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+      <input [(ngModel)]='searchDetails' name="search" class="form-control me-2" type="search" placeholder="Search"
+             aria-label="Search">
+      <button (click)="onSearch()" class="btn btn-outline-success" type="submit">Search</button>
+    </form>
     <hr>
-    <div class="text-center">   
-        <h2>Products</h2>
+    <div class="text-center">
+      <h2>Products</h2>
     </div>
     <div class="wrapper-products t-100">
-        <div *ngFor="let product of products" (click)='toProductDetail(product.id)' data-id="product.id">
-              <div class="card m-3">
-                <img [src]="product.icon" class="card-img-top" alt="icon">
-                <div class="card-body">
-                  <h1 class="card-title">{{product.title}}</h1>
-                  <p class="card-text">{{product.teaser}}</p>
-                </div>
-              </div>
+      <div *ngFor="let product of products" (click)='toProductDetail(product.id)' data-id="product.id">
+        <div class="card m-3">
+          <img [src]="product.icon" class="card-img-top" alt="icon">
+          <div class="card-body">
+            <h1 class="card-title">{{product.title}}</h1>
+            <p class="card-text">{{product.teaser}}</p>
+          </div>
         </div>
+      </div>
     </div>
-</div>
+  </div>
 </div>

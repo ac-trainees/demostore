@@ -1,7 +1,7 @@
 export interface IProduct {
-    id: number,
-    title: string,
-    teaser: string,
-    icon: string
+  id: number,
+  title: string,
+  teaser: string,
+  icon: string
 }
 

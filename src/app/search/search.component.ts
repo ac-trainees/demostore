@@ -1,7 +1,7 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { ProductService } from '../api/products.service';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Subscription} from 'rxjs';
+import {ProductService} from '../api/products.service';
 
 @Component({
   selector: 'app-search',
@@ -9,7 +9,7 @@ import { ProductService } from '../api/products.service';
   styleUrls: ['./search.component.scss']
 })
 
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, OnDestroy {
 
   query: string | null = '';
 
@@ -20,9 +20,9 @@ export class SearchComponent implements OnInit {
   errorMessage: any;
 
   constructor(private route: ActivatedRoute,
-                private router: Router,
-                private productService: ProductService,
-                private elementRef: ElementRef){}
+              private router: Router,
+              private productService: ProductService) {
+  }
 
   private _searchDetails: string = '';
 
@@ -34,6 +34,7 @@ export class SearchComponent implements OnInit {
     this._searchDetails = value;
     console.log('search: ', this._searchDetails)
   }
+
   onSearch(): void {
     this.router.navigate(["search", this._searchDetails]);
   }
@@ -46,20 +47,20 @@ export class SearchComponent implements OnInit {
     this.query = this.route.snapshot.paramMap.get('query');
 
     this.sub = this.productService.productData$.subscribe(
-      data => { 
-              if(data.length === 0) {
-                this.productService.getProducts().subscribe({
-                  next: data => {
-                      this.products = data;
-                    }
-                  })
-              } else {
-                this.products = data;
-              }
-          }
-      ) 
-    }
-  
+      data => {
+        if (data.length === 0) {
+          this.productService.getProducts().subscribe({
+            next: data => {
+              this.products = data;
+            }
+          })
+        } else {
+          this.products = data;
+        }
+      }
+    )
+  }
+
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
