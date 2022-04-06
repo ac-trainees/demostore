@@ -1,16 +1,16 @@
 import { TestBed } from '@angular/core/testing';
 
-import { LanguageService } from './language.service';
+import { CountryService } from './country.service';
 
 describe('LanguageService', () => {
-  let service: LanguageService;
-  let language!: string;
+  let service: CountryService;
+
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(LanguageService);
+    service = TestBed.inject(CountryService);
 
-    language = 'not right';
+
   });
 
   it('should be created', () => {
@@ -19,6 +19,6 @@ describe('LanguageService', () => {
 
   it('should set local lang AND LangService', () => {
     service.setService('de');
-    expect(service.language).toBe('de');
+    expect(service.country).toBe('de');
   });
 });

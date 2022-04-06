@@ -3,7 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LangSelectorModule } from './components/lang-selector/lang-selector.module';
+import { CountrySelectorModule } from './components/country-selector/country-selector.module';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -11,7 +12,7 @@ import { LangSelectorModule } from './components/lang-selector/lang-selector.mod
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    LangSelectorModule,
+    CountrySelectorModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

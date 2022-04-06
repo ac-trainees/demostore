@@ -1,12 +1,12 @@
-import { LanguageService } from '../../services/language.service';
+import { CountryService } from '../../services/country.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-lang-selector',
-  templateUrl: './lang-selector.component.html',
-  styleUrls: ['./lang-selector.component.scss'],
+  selector: 'app-country-selector',
+  templateUrl: './country-selector.component.html',
+  styleUrls: ['./country-selector.component.scss'],
 })
-export class LangSelectorComponent implements OnInit {
+export class CountrySelectorComponent implements OnInit {
   country!: string;
   seachValue!: string;
 
@@ -17,10 +17,10 @@ export class LangSelectorComponent implements OnInit {
 
   filteredCountrys!: { short: string; long: string }[];
 
-  constructor(public langService: LanguageService) {}
+  constructor(public countryService: CountryService) {}
 
   ngOnInit(): void {
-    this.country = this.langService.language;
+    this.country = this.countryService.country;
     this.filteredCountrys = this.allCountrys;
   }
 
@@ -30,8 +30,8 @@ export class LangSelectorComponent implements OnInit {
     });
   }
 
-  setLang(shortCountry: string): void {
+  setCountry(shortCountry: string): void {
     this.country = shortCountry;
-    this.langService.setService(shortCountry);
+    this.countryService.setService(shortCountry);
   }
 }

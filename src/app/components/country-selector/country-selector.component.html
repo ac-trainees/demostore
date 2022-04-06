@@ -5,9 +5,9 @@
 <mat-menu #menu="matMenu">
   <button
     mat-menu-item
-    (click)="setLang(language.short)"
-    *ngFor="let language of allCountrys"
+    (click)="setCountry(country.short)"
+    *ngFor="let country of allCountrys"
   >
-    {{ language.long }}
+    {{ country.long }}
   </button>
 </mat-menu>
