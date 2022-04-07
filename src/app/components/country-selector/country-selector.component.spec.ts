@@ -20,6 +20,8 @@ describe('CountrySelectorComponent', () => {
     }),
   };
 
+  let eventStub: any = { stopPropagation: jest.fn((event: Event) => {}) };
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [CountrySelectorComponent],
@@ -70,5 +72,16 @@ describe('CountrySelectorComponent', () => {
       alpha2Code: 'us',
       name: 'United States',
     });
+  });
+
+  it('should be called', () => {
+    component.stopPropagation(eventStub);
+    expect(eventStub.stopPropagation.mock.calls.length).toBe(1);
+  });
+
+  it('should reset filter ad run filter', () => {
+    component.resetFilter();
+    expect(component.seachValue).toBe('');
+    expect(component.allCountrys).toHaveLength(2);
   });
 });
