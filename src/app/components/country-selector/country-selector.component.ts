@@ -1,7 +1,6 @@
 import { CountryService } from '../../services/country.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CountryI } from '../../interfaces/country';
-import { MatMenuTrigger } from '@angular/material/menu';
 
 @Component({
   selector: 'app-country-selector',
@@ -9,8 +8,6 @@ import { MatMenuTrigger } from '@angular/material/menu';
   styleUrls: ['./country-selector.component.scss'],
 })
 export class CountrySelectorComponent implements OnInit {
-
-
   country!: string;
   seachValue!: string;
   menuOpen: boolean = false;
