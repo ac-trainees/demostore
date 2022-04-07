@@ -1,6 +1,7 @@
 import { CountryService } from '../../services/country.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CountryI } from '../../interfaces/country';
+import { CountryI } from '../../Interface/country';
+import { MatMenuTrigger } from '@angular/material/menu';
 
 @Component({
   selector: 'app-country-selector',
@@ -21,6 +22,8 @@ export class CountrySelectorComponent implements OnInit {
 
   constructor(public countryService: CountryService) {}
 
+  @ViewChild('ClickMatMenuTrigger') trigger!: MatMenuTrigger;
+
   ngOnInit(): void {
     this.country = this.countryService.country;
     this.filteredCountrys = this.allCountrys;
@@ -28,12 +31,24 @@ export class CountrySelectorComponent implements OnInit {
 
   filterCountrys() {
     this.filteredCountrys = this.allCountrys.filter((element) => {
-      return element.name.includes(this.seachValue);
+      return element.name
+        .toLocaleLowerCase()
+        .includes(this.seachValue.toLocaleLowerCase());
     });
+  }
+
+  stopPropagation(event: any) {
+    event.stopPropagation();
+  }
+
+  resetFilter() {
+    this.seachValue = '';
+    this.filterCountrys();
   }
 
   setCountry(shortCountry: string): void {
     this.country = shortCountry;
     this.countryService.setService(shortCountry);
+    this.trigger.closeMenu();
   }
 }

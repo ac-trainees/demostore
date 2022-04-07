@@ -25,7 +25,8 @@
     "types": [
       "jest",
       "node"
-    ]
+    ],
+    "esModuleInterop": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
@@ -33,5 +34,4 @@
     "strictInputAccessModifiers": true,
     "strictTemplates": true
   },
-  "esModuleInterop": true
 }

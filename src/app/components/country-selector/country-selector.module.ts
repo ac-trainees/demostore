@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { EventEmitter, Input, NgModule, Output } from '@angular/core';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { CountrySelectorComponent } from './country-selector.component';
@@ -7,6 +7,7 @@ import { MatSelectCountryModule } from '@angular-material-extensions/select-coun
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [CountrySelectorComponent],
@@ -18,6 +19,7 @@ import { MatListModule } from '@angular/material/list';
     MatFormFieldModule,
     MatInputModule,
     MatListModule,
+    FormsModule,
   ],
   exports: [CountrySelectorComponent],
 })
