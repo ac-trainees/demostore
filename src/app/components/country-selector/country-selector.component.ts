@@ -1,5 +1,7 @@
 import { CountryService } from '../../services/country.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { CountryI } from '../../interfaces/country';
+import { MatMenuTrigger } from '@angular/material/menu';
 
 @Component({
   selector: 'app-country-selector',
@@ -7,15 +9,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./country-selector.component.scss'],
 })
 export class CountrySelectorComponent implements OnInit {
+
+
   country!: string;
   seachValue!: string;
+  menuOpen: boolean = false;
 
-  allCountrys: { short: string; long: string }[] = [
-    { short: 'en', long: 'United States' },
-    { short: 'de', long: 'Germany' },
+  allCountrys: CountryI[] = [
+    { alpha2Code: 'en', name: 'United States' },
+    { alpha2Code: 'de', name: 'Germany' },
   ];
 
-  filteredCountrys!: { short: string; long: string }[];
+  filteredCountrys!: CountryI[];
 
   constructor(public countryService: CountryService) {}
 
@@ -26,7 +31,7 @@ export class CountrySelectorComponent implements OnInit {
 
   filterCountrys() {
     this.filteredCountrys = this.allCountrys.filter((element) => {
-      return element.long.includes(this.seachValue);
+      return element.name.includes(this.seachValue);
     });
   }
 
