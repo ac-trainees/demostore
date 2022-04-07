@@ -7,17 +7,24 @@ exports[`CountrySelectorComponent should create 1`] = `
   country={[Function String]}
   countryService={[Function Object]}
   filteredCountrys={[Function Array]}
+  menuOpen="false"
+  trigger={[Function MatMenuTrigger]}
 >
   <button
     aria-haspopup="true"
-    class="mat-focus-indicator mat-menu-trigger mat-mini-fab mat-button-base mat-primary"
+    class="mat-focus-indicator mat-menu-trigger mat-icon-button mat-button-base mat-primary"
     color="primary"
-    mat-mini-fab=""
+    mat-icon-button=""
+    yposition="before"
   >
     <span
       class="mat-button-wrapper"
     >
-       ERROR
+      <span
+        class="fi fi-us"
+      >
+        ERROR
+      </span>
     </span>
     <span
       class="mat-ripple mat-button-ripple mat-button-ripple-round"

@@ -14,7 +14,7 @@ export class CountrySelectorComponent implements OnInit {
   menuOpen: boolean = false;
 
   allCountrys: CountryI[] = [
-    { alpha2Code: 'en', name: 'United States' },
+    { alpha2Code: 'us', name: 'United States' },
     { alpha2Code: 'de', name: 'Germany' },
   ];
 
