@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ProductService } from '../api/products.service';
-
+import { QueryService } from '../api/query.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
+
 export class HeaderComponent {
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,
+              private queryData: QueryService) {}
 
   private _searchDetails: string = '';
 
@@ -20,11 +21,10 @@ export class HeaderComponent {
 
   set searchDetails(value: string) {
     this._searchDetails = value;
-    console.log('this.searchdetails: ', this._searchDetails)
   }
 
   onSearch(): void {
     this.router.navigate(["search", this._searchDetails]);
+    this.queryData.setQueryData(this._searchDetails)
   }
-
 }

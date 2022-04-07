@@ -1,9 +1,10 @@
-import { Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ProductService } from '../api/products.service';
+import { QueryService } from '../api/query.service';
 import { IProduct } from '../Interface/products';
 
 @Component({
@@ -34,7 +35,8 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
                 private router: Router,
-                private productService: ProductService){}
+                private productService: ProductService,
+                private queryData: QueryService){}
 
   private _searchDetails: string = '';
 
@@ -75,21 +77,16 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.router.navigate(["product", id]);
   }
 
-  onPageChange(event: PageEvent, array: IProduct[]) {
-
-    console.log('event: ', event)
+  onPageChange(event: PageEvent, productsArray: IProduct[]) {
 
     const startIndex = event.pageIndex * event.pageSize;
     let endIndex = startIndex + event.pageSize;
 
-      if(endIndex > array.length) {
-        endIndex = array.length
+      if (endIndex > productsArray.length) {
+        endIndex = productsArray.length
       }
+    this.visibleProducts = productsArray.slice(startIndex, endIndex);
 
-      console.log('array: ', array)
-    this.visibleProducts = array.slice(startIndex, endIndex);
-
-    console.log('this.visibleProducts', this.visibleProducts)
   }
 
   getCategoryList() {
@@ -98,26 +95,28 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.productsBySearch.map(item => {
      unfilteredCategories.push(item.category)
     })
-
     const uniqueCategories = findUniqueItems(unfilteredCategories);
 
-    this.categoryList = uniqueCategories;
-    
+    this.categoryList = uniqueCategories; 
   }
 
   ngOnInit(): void {
-    this.query = this.route.snapshot.paramMap.get('query');
 
-      if(this.query) {
-        this.sub = this.productService.getProductsByQuery(this.query).subscribe({
-          next: data => {
-            this.productsBySearch = data.results;
-            this.searchCount = data.count;
-            this.visibleProducts = this.productsBySearch.slice(0, 12);
-            this.getCategoryList();
-          }
-        })
-      }
+    this.query = this.route.snapshot.paramMap.get("query");
+
+      this.sub = this.queryData.queryData$.subscribe(query => {
+        if(query) {
+          this.productService.getProductsByQuery(query).subscribe({
+            next: data => {
+              this.productsBySearch = data.results;
+              this.searchCount = data.count;
+              this.query = query;
+              this.visibleProducts = this.productsBySearch.slice(0, 12);
+              this.getCategoryList();
+            }
+          })
+        }    
+      });
     }
 
   ngOnDestroy(): void {
