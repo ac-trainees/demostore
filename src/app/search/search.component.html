@@ -54,18 +54,18 @@
         </div>
 
         <div *ngIf="_selectedCategory">
-            <mat-paginator [length]="productsFilteredByCategory.length"
+            <mat-paginator [length]="this.productsFilteredByCategory.length"
                 [pageSize]="12"
                 aria-label="Select page"
-                (page)="onPageChange($event, productsFilteredByCategory)">
+                (page)="onPageChange($event, this.productsFilteredByCategory)">
             </mat-paginator>
         </div>
 
         <div *ngIf="!_selectedCategory">
-            <mat-paginator [length]="productsBySearch.length"
+            <mat-paginator [length]="this.productsBySearch.length"
                 [pageSize]="12"
                 aria-label="Select page"
-                (page)="onPageChange($event, productsBySearch)">
+                (page)="onPageChange($event, this.productsBySearch)">
             </mat-paginator>
         </div>
     </div>

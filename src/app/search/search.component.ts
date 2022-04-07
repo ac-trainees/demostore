@@ -51,9 +51,8 @@ export class SearchComponent implements OnInit, OnDestroy {
     this._selectedCategory = value;
 
     this.productsFilteredByCategory = findItemsByCategory(this._selectedCategory, this.productsBySearch);
-    this.visibleProducts = this.productsFilteredByCategory;
+    this.visibleProducts = this.productsFilteredByCategory.slice(0, 12);
 
-    console.log('filteredByCategory: ', this.productsFilteredByCategory)
   }
 
 
@@ -78,6 +77,8 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   onPageChange(event: PageEvent, array: IProduct[]) {
 
+    console.log('event: ', event)
+
     const startIndex = event.pageIndex * event.pageSize;
     let endIndex = startIndex + event.pageSize;
 
@@ -85,7 +86,10 @@ export class SearchComponent implements OnInit, OnDestroy {
         endIndex = array.length
       }
 
+      console.log('array: ', array)
     this.visibleProducts = array.slice(startIndex, endIndex);
+
+    console.log('this.visibleProducts', this.visibleProducts)
   }
 
   getCategoryList() {
