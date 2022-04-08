@@ -1,8 +1,16 @@
+.my-card-content {
+  padding: 16px;
+}
+.my-card {
+  height: 350px;
+  width: 350px;
+}
 .card {
   width: 100%;
-  max-width: 500px;
-  min-width: 300px;
-  height: 220px;
+  margin: 10px;
+  max-width: 350px;
+  min-width: 270px;
+  height: 90%;
   margin-bottom: 8px;
 }
 .card:hover {
@@ -11,17 +19,10 @@
 .mat-elevation-z1 {
   box-shadow: 0 0.625rem 1.25rem #0000000d;
 }
-
 mat-card::ng-deep.mat-card-title {
-  font-size: 18px;
+  font-size: 14px;
 }
 mat-card::ng-deep.mat-card-content {
-  padding-top: 40px;
   color: grey;
 }
-mat-card::ng-deep.mat-card-sm-image {
-  margin-left: 10px;
-}
-mat-form-field::ng-deep.mat-form-field-flex {
-  background-color: white;
-}
+

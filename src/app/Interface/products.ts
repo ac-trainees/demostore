@@ -3,6 +3,7 @@ export interface IProduct {
   title: string,
   teaser: string,
   icon: string,
-  category: string
+  category: string,
+  image: string
 }
 

@@ -7,6 +7,7 @@ import { ProductService } from '../api/products.service';
 import { QueryService } from '../api/query.service';
 import { IProduct } from '../Interface/products';
 
+
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -72,7 +73,6 @@ export class SearchComponent implements OnInit, OnDestroy {
     })
   }
 
-
   toProductDetailPage(id: number): void {
     this.router.navigate(["product", id]);
   }
@@ -108,6 +108,7 @@ export class SearchComponent implements OnInit, OnDestroy {
       if (query) {
         this.productService.getProductsByQuery(query).subscribe({
           next: data => {
+            this._selectedCategory = '';
             this.productsBySearch = data.results;
             this.searchCount = data.count;
             this.query = query;
