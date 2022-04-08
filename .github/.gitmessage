@@ -1,0 +1,8 @@
+
+# Your commit need to follow Conventional Commits
+# Example:
+#
+# <type>: Your Commit message goes here
+#
+# Types are: (build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test)
+# See https://www.conventionalcommits.org/en/v1.0.0/ for more information
