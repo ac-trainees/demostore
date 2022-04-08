@@ -11,7 +11,7 @@ import { QueryService } from '../api/query.service';
 export class HeaderComponent {
 
   constructor(private router: Router,
-              private queryData: QueryService) {}
+    private queryData: QueryService) { }
 
   private _searchDetails: string = '';
 

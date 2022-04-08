@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-
 import { HeaderComponent } from './header.component';
 
 describe('HeaderComponent', () => {
@@ -12,9 +11,9 @@ describe('HeaderComponent', () => {
       imports: [
         RouterTestingModule
       ],
-      declarations: [ HeaderComponent ],
+      declarations: [HeaderComponent],
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

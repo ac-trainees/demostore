@@ -1,66 +1,63 @@
 <div class="container-bg">
 
-<div class="mt-5" *ngIf="this.query">
+  <div class="mt-5" *ngIf="this.query">
 
-        <div class="row d-flex justify-content-center mt-5">
-            <div class="col d-flex justify-content-between align-items-end">
+    <div class="row d-flex justify-content-center mt-5">
+      <div class="col d-flex justify-content-between align-items-end">
 
-                <div *ngIf="_selectedCategory" class="d-flex">
-                    <h2>{{this.productsFilteredByCategory.length}} Results for "{{this._selectedCategory}}" category</h2>
-                </div>
-
-                <div *ngIf="!_selectedCategory" class="d-flex">
-                    <h2>{{this.searchCount}} Results for "{{this.query}}"</h2>
-                </div>
-
-                <div class="d-flex">
-                    <mat-form-field appearance="fill">
-                        <mat-label>Categories</mat-label>
-                        <mat-select [(value)]="selectedCategory">
-                        <mat-select-trigger>
-                            {{categories.value ? categories.value[0] : ''}}
-                            <span *ngIf="categories.value?.length > 1" class="example-additional-selection">
-                            (+{{categories.value.length - 1}} {{categories.value?.length === 2 ? 'other' : 'others'}})
-                            </span>
-                        </mat-select-trigger>
-                        <mat-option *ngFor="let categories of categoryList" [value]="categories">{{categories}}</mat-option>
-                        </mat-select>
-                    </mat-form-field>            
-                </div>
-
-            </div> 
+        <div *ngIf="_selectedCategory" class="d-flex">
+          <h2>{{this.productsFilteredByCategory.length}} Results for "{{this._selectedCategory}}" category</h2>
         </div>
 
-        <div class="top-100 row d-flex justify-content-center">
-            <div class="col d-flex justify-content-between align-items-start" *ngFor="let product of visibleProducts" (click)='toProductDetailPage(product.id)' data-id="product.id">
-            
-                <mat-card class="card mat-elevation-z1">
-                <mat-card-title-group>
-                    <img mat-card-sm-image [src]="product.icon" >
-                    <mat-card-title>{{product.title}}</mat-card-title>
-                </mat-card-title-group>
-                <mat-card-content>
-                {{product.teaser}}
-                </mat-card-content>
-            </mat-card>
-            
-            </div>
+        <div *ngIf="!_selectedCategory" class="d-flex">
+          <h2>{{this.searchCount}} Results for "{{this.query}}"</h2>
         </div>
 
-        <div *ngIf="_selectedCategory">
-            <mat-paginator [length]="this.productsFilteredByCategory.length"
-                [pageSize]="12"
-                aria-label="Select page"
-                (page)="onPageChange($event, this.productsFilteredByCategory)">
-            </mat-paginator>
+        <div class="d-flex">
+          <mat-form-field appearance="fill">
+            <mat-label>Categories</mat-label>
+            <mat-select [(value)]="selectedCategory">
+              <mat-select-trigger>
+                {{categories.value ? categories.value[0] : ''}}
+                <span *ngIf="categories.value?.length > 1" class="example-additional-selection">
+                  (+{{categories.value.length - 1}} {{categories.value?.length === 2 ? 'other' : 'others'}})
+                </span>
+              </mat-select-trigger>
+              <mat-option *ngFor="let categories of categoryList" [value]="categories">{{categories}}</mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
 
-        <div *ngIf="!_selectedCategory">
-            <mat-paginator [length]="this.productsBySearch.length"
-                [pageSize]="12"
-                aria-label="Select page"
-                (page)="onPageChange($event, this.productsBySearch)">
-            </mat-paginator>
-        </div>
+      </div>
     </div>
+
+    <div class="top-100 row d-flex justify-content-center">
+      <div class="col d-flex justify-content-between align-items-start" *ngFor="let product of visibleProducts"
+        (click)='toProductDetailPage(product.id)' data-id="product.id">
+
+        <mat-card class="card mat-elevation-z1">
+          <mat-card-title-group>
+            <img mat-card-sm-image [src]="product.icon">
+            <mat-card-title>{{product.title}}</mat-card-title>
+          </mat-card-title-group>
+          <mat-card-content>
+            {{product.teaser}}
+          </mat-card-content>
+        </mat-card>
+
+      </div>
+    </div>
+
+    <div *ngIf="_selectedCategory">
+      <mat-paginator [length]="this.productsFilteredByCategory.length" [pageSize]="12" aria-label="Select page"
+        (page)="onPageChange($event, this.productsFilteredByCategory)">
+      </mat-paginator>
+    </div>
+
+    <div *ngIf="!_selectedCategory">
+      <mat-paginator [length]="this.productsBySearch.length" [pageSize]="12" aria-label="Select page"
+        (page)="onPageChange($event, this.productsBySearch)">
+      </mat-paginator>
+    </div>
+  </div>
 </div>

@@ -34,9 +34,9 @@ export class SearchComponent implements OnInit, OnDestroy {
   _selectedCategory: string = '';
 
   constructor(private route: ActivatedRoute,
-                private router: Router,
-                private productService: ProductService,
-                private queryData: QueryService){}
+    private router: Router,
+    private productService: ProductService,
+    private queryData: QueryService) { }
 
   private _searchDetails: string = '';
 
@@ -44,7 +44,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   get searchDetails(): string {
     return this._searchDetails;
   }
-  
+
   set searchDetails(value: string) {
     this._searchDetails = value;
   }
@@ -82,9 +82,9 @@ export class SearchComponent implements OnInit, OnDestroy {
     const startIndex = event.pageIndex * event.pageSize;
     let endIndex = startIndex + event.pageSize;
 
-      if (endIndex > productsArray.length) {
-        endIndex = productsArray.length
-      }
+    if (endIndex > productsArray.length) {
+      endIndex = productsArray.length
+    }
     this.visibleProducts = productsArray.slice(startIndex, endIndex);
 
   }
@@ -93,31 +93,31 @@ export class SearchComponent implements OnInit, OnDestroy {
     const unfilteredCategories: string[] = [];
 
     this.productsBySearch.map(item => {
-     unfilteredCategories.push(item.category)
+      unfilteredCategories.push(item.category)
     })
     const uniqueCategories = findUniqueItems(unfilteredCategories);
 
-    this.categoryList = uniqueCategories; 
+    this.categoryList = uniqueCategories;
   }
 
   ngOnInit(): void {
 
     this.query = this.route.snapshot.paramMap.get("query");
 
-      this.sub = this.queryData.queryData$.subscribe(query => {
-        if(query) {
-          this.productService.getProductsByQuery(query).subscribe({
-            next: data => {
-              this.productsBySearch = data.results;
-              this.searchCount = data.count;
-              this.query = query;
-              this.visibleProducts = this.productsBySearch.slice(0, 12);
-              this.getCategoryList();
-            }
-          })
-        }    
-      });
-    }
+    this.sub = this.queryData.queryData$.subscribe(query => {
+      if (query) {
+        this.productService.getProductsByQuery(query).subscribe({
+          next: data => {
+            this.productsBySearch = data.results;
+            this.searchCount = data.count;
+            this.query = query;
+            this.visibleProducts = this.productsBySearch.slice(0, 12);
+            this.getCategoryList();
+          }
+        })
+      }
+    });
+  }
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
@@ -130,5 +130,5 @@ const findUniqueItems = (arr: string[]) => arr.filter((item, pos) => {
   return arr.indexOf(item) === pos;
 })
 
-const findItemsByCategory = (category: string, arr: IProduct[]) => 
-            arr.filter(el => el.category === category);
+const findItemsByCategory = (category: string, arr: IProduct[]) =>
+  arr.filter(el => el.category === category);

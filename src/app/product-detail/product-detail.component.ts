@@ -20,30 +20,30 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   selectedProduct: IProduct | undefined;
 
   constructor(private route: ActivatedRoute,
-                  public productService: ProductService) {}
+    public productService: ProductService) { }
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get("id"));
     this.productId = id;
 
     this.sub = this.productService.productData$.subscribe(
-      data => { 
-              if(data.length === 0) {
-                this.productService.getProducts().subscribe({
-                  next: data => {
-                      this.products = data;
-                      this.selectedProduct = this.products.find(el => el.id === id);
-                    }
-                  })
-              } else {
-                this.products = data;
-                this.selectedProduct = this.products.find(el => el.id === id);
-              }
-          }
-      ) 
-    }
+      data => {
+        if (data.length === 0) {
+          this.productService.getProducts().subscribe({
+            next: data => {
+              this.products = data;
+              this.selectedProduct = this.products.find(el => el.id === id);
+            }
+          })
+        } else {
+          this.products = data;
+          this.selectedProduct = this.products.find(el => el.id === id);
+        }
+      }
+    )
+  }
 
-    ngOnDestroy(): void {
-      this.sub.unsubscribe();
-    }
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
+  }
 }
