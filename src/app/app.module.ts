@@ -39,7 +39,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatPaginatorModule,
     HttpClientModule,
     MatFormFieldModule,
-    MatSelectModule, 
+    MatSelectModule,
     RouterModule.forRoot([
       {path: '', component: LandingPageComponent},
       {path: 'search', component: SearchComponent},
@@ -51,4 +51,5 @@ import { MatSelectModule } from '@angular/material/select';
   providers: [],
   bootstrap: [HeaderComponent, AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
