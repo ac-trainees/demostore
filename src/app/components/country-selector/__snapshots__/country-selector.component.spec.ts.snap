@@ -21,10 +21,8 @@ exports[`CountrySelectorComponent should create 1`] = `
       class="mat-button-wrapper"
     >
       <span
-        class="fi fi-us"
-      >
-        ERROR
-      </span>
+        class="fi fi-error"
+      />
     </span>
     <span
       class="mat-ripple mat-button-ripple"
