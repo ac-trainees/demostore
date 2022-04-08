@@ -6,7 +6,7 @@
   #ClickMatMenuTrigger="matMenuTrigger"
   (click)="resetFilter()"
 >
-  <span class="fi fi-us">{{ country.toLocaleUpperCase() }}</span>
+  <span class="fi fi-{{country}}"></span>
 </button>
 
 <mat-menu #menu="matMenu">
@@ -26,7 +26,7 @@
       </mat-list-item>
       <mat-list-item *ngFor="let country of filteredCountrys">
         <button mat-menu-item (click)="setCountry(country.alpha2Code)">
-          <span class="fi fi-us"></span>
+          <span class="fi fi-{{country.alpha2Code}}"></span>
           {{ country.name }}
         </button>
       </mat-list-item>
