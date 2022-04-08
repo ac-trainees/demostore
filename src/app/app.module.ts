@@ -14,11 +14,6 @@ import { HeaderComponent } from './header/header.component';
 import { ConfiguratorComponent } from './configurator/configurator.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CountrySelectorModule } from './components/country-selector/country-selector.module';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
   declarations: [
@@ -39,11 +34,6 @@ import { MatChipsModule } from '@angular/material/chips';
     MatCardModule,
     HttpClientModule,
     CountrySelectorModule,
-    MatToolbarModule,
-    MatInputModule,
-    MatButtonModule,
-    MatTabsModule,
-    MatChipsModule,
     RouterModule.forRoot([
       { path: '', component: LandingPageComponent },
       { path: 'search', component: SearchComponent },
