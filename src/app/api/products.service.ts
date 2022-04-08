@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, catchError, tap, throwError } from 'rxjs';
 import { IProduct } from '../Interface/products';
+import { CountryService } from '../services/country.service';
 
 @Injectable({
   providedIn: 'root',
@@ -20,10 +21,10 @@ export class ProductService {
     this.productsSubject.next(newValue);
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private country: CountryService) {}
 
   getProducts(): Observable<IProduct[]> {
-    return this.http.get<IProduct[]>(this.productUrl).pipe(
+    return this.http.get<IProduct[]>(this.productUrl,{headers:  this.country.sendHeader()}).pipe(
       tap((data) => this.setProductsSubject(data)),
       catchError(this.handleError)
     );

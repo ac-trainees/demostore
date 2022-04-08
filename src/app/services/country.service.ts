@@ -1,3 +1,4 @@
+import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -5,14 +6,13 @@ import { Injectable } from '@angular/core';
 })
 export class CountryService {
   country: string = 'us';
-
   constructor() {}
 
   setService(country: string) {
     this.country = country;
   }
 
-  sendHeader() {
-    return new Headers({ country: this.country });
+  sendHeader():HttpHeaders {
+    return new HttpHeaders({ country: this.country });
   }
 }
