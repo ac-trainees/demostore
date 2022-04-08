@@ -2,7 +2,6 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, catchError, tap, throwError } from 'rxjs';
 import { IProduct } from '../Interface/products';
-import { CountryService } from '../services/country.service';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +20,7 @@ export class ProductService {
     this.productsSubject.next(newValue);
   }
 
-  constructor(private http: HttpClient, private country: CountryService) {}
+  constructor(private http: HttpClient) {}
 
   getProducts(): Observable<IProduct[]> {
     return this.http.get<IProduct[]>(this.productUrl).pipe(

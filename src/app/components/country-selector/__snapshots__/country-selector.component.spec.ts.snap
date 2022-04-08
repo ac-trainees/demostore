@@ -12,9 +12,9 @@ exports[`CountrySelectorComponent should create 1`] = `
 >
   <button
     aria-haspopup="true"
-    class="mat-focus-indicator mat-menu-trigger mat-icon-button mat-button-base mat-primary"
+    class="mat-focus-indicator mat-menu-trigger mat-raised-button mat-button-base mat-primary"
     color="primary"
-    mat-icon-button=""
+    mat-raised-button=""
     yposition="before"
   >
     <span
@@ -27,7 +27,7 @@ exports[`CountrySelectorComponent should create 1`] = `
       </span>
     </span>
     <span
-      class="mat-ripple mat-button-ripple mat-button-ripple-round"
+      class="mat-ripple mat-button-ripple"
       matripple=""
     />
     <span

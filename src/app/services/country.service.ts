@@ -11,4 +11,8 @@ export class CountryService {
   setService(country: string) {
     this.country = country;
   }
+
+  sendHeader() {
+    return new Headers({ country: this.country });
+  }
 }
