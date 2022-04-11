@@ -4,6 +4,8 @@ export interface IProduct {
   teaser: string,
   icon: string,
   category: string,
-  image: string
+  image: string,
+  status: string,
+  releaseDate: any;
 }
 

@@ -25,4 +25,16 @@ mat-card::ng-deep.mat-card-title {
 mat-card::ng-deep.mat-card-content {
   color: grey;
 }
-
+mat-form-field::ng-deep.mat-form-field-flex {
+  background-color: rgb(255, 255, 255);
+}
+mat-form-field::ng-deep.mat-form-field-underline {
+  width: 0;
+}
+.mat-form-field {
+  text-align: right;
+  font-size: 16px;
+}
+mat-form-field::ng-deep.mat-form-field-infix {
+  width: 130px;
+}

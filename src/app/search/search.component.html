@@ -3,27 +3,57 @@
   <div class="mt-5" *ngIf="this.query">
 
     <div class="row d-flex justify-content-center mt-5">
-      <div class="col d-flex justify-content-between align-items-end">
+      <div class="col d-flex justify-content-center align-items-end">
 
-        <div *ngIf="_selectedCategory" class="d-flex">
-          <h2>{{this.productsFilteredByCategory.length}} Results for "{{this._selectedCategory}}" category</h2>
+        <div class="d-flex">
+          <mat-form-field appearance="fill">
+            <mat-label>Categories</mat-label>
+            <mat-select #matRef [formControl]="categories" [(value)]="selectedCategory">
+              <mat-select-trigger>
+                {{categories.value ? _selectedCategory : ''}}
+              </mat-select-trigger>
+              <mat-option *ngFor="let categories of categoryList" [value]="categories">{{categories}}</mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
 
-        <div *ngIf="!_selectedCategory" class="d-flex">
+        <div class="d-flex">
+          <mat-form-field appearance="fill">
+            <mat-label>Status</mat-label>
+            <mat-select #matRef [formControl]="status" [(value)]="selectedStatus">
+              <mat-select-trigger>
+                {{status.value ? _selectedStatus : ''}}
+              </mat-select-trigger>
+              <mat-option *ngFor="let status of statusList" [value]="status">{{status}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row d-flex justify-content-center mt-5">
+      <div class="col d-flex justify-content-between align-items-end">
+
+        <div *ngIf="this._selectedCategory" class="d-flex">
+          <h2>{{this.filteredProducts.length}} Results for "{{this._selectedCategory}}" category</h2>
+        </div>
+
+        <div *ngIf="this._selectedStatus" class="d-flex">
+          <h2>{{this.filteredProducts.length}} Results for "{{this._selectedStatus}}" status</h2>
+        </div>
+
+        <div *ngIf="!_selectedCategory && !_selectedStatus" class="d-flex">
           <h2>{{this.searchCount}} Results for "{{this.query}}"</h2>
         </div>
 
         <div class="d-flex">
           <mat-form-field appearance="fill">
-            <mat-label>Categories</mat-label>
-            <mat-select [(value)]="selectedCategory">
-              <mat-select-trigger>
-                {{categories.value ? categories.value[0] : ''}}
-                <span *ngIf="categories.value?.length > 1" class="example-additional-selection">
-                  (+{{categories.value.length - 1}} {{categories.value?.length === 2 ? 'other' : 'others'}})
-                </span>
-              </mat-select-trigger>
-              <mat-option *ngFor="let categories of categoryList" [value]="categories">{{categories}}</mat-option>
+            <mat-label>Release date:</mat-label>
+            <mat-select #matRef [(value)]="sortByReleaseDate" name="releaseDate">
+              <mat-option *ngFor="let type of releaseDate" [value]="type.value">
+                {{type.viewValue}}
+              </mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -52,15 +82,15 @@
       </div>
     </div>
 
-    <div *ngIf="_selectedCategory">
-      <mat-paginator [length]="this.productsFilteredByCategory.length" [pageSize]="12" aria-label="Select page"
-        (page)="onPageChange($event, this.productsFilteredByCategory)">
+    <div *ngIf="_selectedCategory || _selectedStatus">
+      <mat-paginator [length]="this.filteredProducts.length" [pageSize]="12" aria-label="Select page"
+        (page)="onPageChange($event, this.filteredProducts)">
       </mat-paginator>
     </div>
 
-    <div *ngIf="!_selectedCategory">
-      <mat-paginator [length]="this.productsBySearch.length" [pageSize]="12" aria-label="Select page"
-        (page)="onPageChange($event, this.productsBySearch)">
+    <div *ngIf="!_selectedCategory && !_selectedStatus">
+      <mat-paginator [length]="this.allProductsBySearch.length" [pageSize]="12" aria-label="Select page"
+        (page)="onPageChange($event, this.allProductsBySearch)">
       </mat-paginator>
     </div>
   </div>

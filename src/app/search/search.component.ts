@@ -1,6 +1,8 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatOption } from '@angular/material/core';
 import { PageEvent } from '@angular/material/paginator';
+import { MatSelect } from '@angular/material/select';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ProductService } from '../api/products.service';
@@ -18,7 +20,9 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   query: string | null = '';
 
-  productsBySearch: IProduct[] = [];
+  allProductsBySearch: IProduct[] = [];
+
+  filteredProducts: IProduct[] = [];
 
   searchCount: number | undefined;
 
@@ -28,11 +32,22 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   categoryList: string[] = [];
 
+  statusList: string[] = [];
+
   categories = new FormControl();
 
-  productsFilteredByCategory: IProduct[] = [];
+  status = new FormControl();
 
   _selectedCategory: string = '';
+
+  _selectedStatus: string = '';
+
+  _selectedReleaseDate: string = '';
+
+  releaseDate: any[] = [
+    { value: 'newest', viewValue: 'Newest' },
+    { value: 'oldest', viewValue: 'Oldest' },
+  ];
 
   constructor(private route: ActivatedRoute,
     private router: Router,
@@ -51,24 +66,56 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   set selectedCategory(value: string) {
+    this.resetFilterValues();
     this._selectedCategory = value;
 
-    this.productsFilteredByCategory = findItemsByCategory(this._selectedCategory, this.productsBySearch);
-    this.visibleProducts = this.productsFilteredByCategory.slice(0, 12);
+    this.filteredProducts = findItemsByCategory(this._selectedCategory, this.allProductsBySearch);
+    this.visibleProducts = this.filteredProducts.slice(0, 12);
+  }
+
+  set selectedStatus(value: string) {
+    this.resetFilterValues();
+    this._selectedStatus = value;
+
+    this.filteredProducts = findItemsByStatus(this._selectedStatus, this.allProductsBySearch);
+    this.visibleProducts = this.filteredProducts.slice(0, 12);
+  }
+
+  set sortByReleaseDate(value: string) {
+
+    this._selectedReleaseDate = value;
+
+    switch (this._selectedReleaseDate) {
+
+      case 'newest': this.filteredProducts.sort((a, b) => Number(new Date(b.releaseDate)) - Number(new Date(a.releaseDate)));
+        break;
+
+      case 'oldest': this.filteredProducts.sort((a, b) => Number(new Date(a.releaseDate)) - Number(new Date(b.releaseDate)));
+        break;
+
+      default: ;
+    }
+    this.visibleProducts = this.filteredProducts.slice(0, 12);
 
   }
 
+  resetFilterValues() {
+    this._selectedStatus = '';
+    this._selectedCategory = '';
+    this._selectedReleaseDate = '';
+  }
 
   onSearch(): void {
     this.router.navigate(["search", this._searchDetails]);
     this.query = this._searchDetails;
     this.sub = this.productService.getProductsByQuery(this._searchDetails).subscribe({
       next: data => {
-        this._selectedCategory = '';
-        this.productsBySearch = data.results;
+        this.resetFilterValues();
+        this.allProductsBySearch = data.results;
         this.searchCount = data.count;
-        this.visibleProducts = this.productsBySearch.slice(0, 12);
+        this.visibleProducts = this.allProductsBySearch.slice(0, 12);
         this.getCategoryList();
+        this.getStatusList();
       }
     })
   }
@@ -92,12 +139,23 @@ export class SearchComponent implements OnInit, OnDestroy {
   getCategoryList() {
     const unfilteredCategories: string[] = [];
 
-    this.productsBySearch.map(item => {
+    this.allProductsBySearch.map(item => {
       unfilteredCategories.push(item.category)
     })
     const uniqueCategories = findUniqueItems(unfilteredCategories);
 
     this.categoryList = uniqueCategories;
+  }
+
+  getStatusList() {
+    const unfilteredStatusList: string[] = [];
+
+    this.allProductsBySearch.map(item => {
+      unfilteredStatusList.push(item.status)
+    })
+    const uniqueStatusList = findUniqueItems(unfilteredStatusList);
+
+    this.statusList = uniqueStatusList;
   }
 
   ngOnInit(): void {
@@ -108,12 +166,13 @@ export class SearchComponent implements OnInit, OnDestroy {
       if (query) {
         this.productService.getProductsByQuery(query).subscribe({
           next: data => {
-            this._selectedCategory = '';
-            this.productsBySearch = data.results;
+            this.resetFilterValues();
+            this.allProductsBySearch = data.results;
             this.searchCount = data.count;
             this.query = query;
-            this.visibleProducts = this.productsBySearch.slice(0, 12);
+            this.visibleProducts = this.allProductsBySearch.slice(0, 12);
             this.getCategoryList();
+            this.getStatusList();
           }
         })
       }
@@ -133,3 +192,11 @@ const findUniqueItems = (arr: string[]) => arr.filter((item, pos) => {
 
 const findItemsByCategory = (category: string, arr: IProduct[]) =>
   arr.filter(el => el.category === category);
+
+const findItemsByStatus = (status: string, arr: IProduct[]) =>
+  arr.filter(el => el.status === status);
+
+
+
+
+
