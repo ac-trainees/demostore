@@ -1,11 +1,21 @@
-li {
-  list-style: none;
+.mat-toolbar {
+  justify-content: space-between;
+  align-items: center;
 }
 
-ul {
-  padding: 0;
+a {
+  text-decoration: none;
+  color: white;
 }
 
-.w-350 {
-  width: 350px;
+.mat-chip-list a {
+  color: black;
+}
+
+.mat-form-field {
+  width: 400px;
+}
+
+.mat-stroked-button {
+  margin-left: 15px;
 }

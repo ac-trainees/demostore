@@ -12,7 +12,7 @@ export class CountryService {
     this.country = country;
   }
 
-  sendHeader():HttpHeaders {
+  sendHeader(): HttpHeaders {
     return new HttpHeaders({ country: this.country });
   }
 }
