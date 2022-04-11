@@ -1,0 +1,15 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+FILE_CONTENT=`cat $1`
+
+REGEX="^(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test){1}(\([[:alnum:]._-]+\))?(!)?: ([[:alnum:]])+([[:space:][:print:]]*)"
+if [[ $FILE_CONTENT =~ $REGEX ]]; then
+  exit 0
+else
+  echo "Commit message is not following Conventional Commits:"
+  echo $FILE_CONTENT
+  echo $ERROR_MSG
+  echo "Commit was aborted"
+  exit 1
+fi

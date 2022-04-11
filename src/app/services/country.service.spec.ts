@@ -14,7 +14,12 @@ describe('LanguageService', () => {
   });
 
   it('should set local lang AND LangService', () => {
-    service.setService('de');
+    service.setCountryCode('de');
     expect(service.country).toBe('de');
+  });
+
+  it('should return a header ', () => {
+    let testValue = service.getHttpHeaders();
+    expect(testValue).toBeTruthy();
   });
 });

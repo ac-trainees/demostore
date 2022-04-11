@@ -8,11 +8,11 @@ export class CountryService {
   country: string = 'us';
   constructor() {}
 
-  setService(country: string) {
+  setCountryCode(country: string) {
     this.country = country;
   }
 
-  sendHeader(): HttpHeaders {
+  getHttpHeaders(): HttpHeaders {
     return new HttpHeaders({ country: this.country });
   }
 }

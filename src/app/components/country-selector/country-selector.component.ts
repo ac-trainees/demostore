@@ -1,6 +1,6 @@
 import { CountryService } from '../../services/country.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CountryI } from '../../Interface/country';
+import { ICountry } from '../../Interface/country';
 import { MatMenuTrigger } from '@angular/material/menu';
 
 @Component({
@@ -13,12 +13,12 @@ export class CountrySelectorComponent implements OnInit {
   seachValue!: string;
   menuOpen: boolean = false;
 
-  allCountrys: CountryI[] = [
+  allCountrys: ICountry[] = [
     { alpha2Code: 'us', name: 'United States' },
     { alpha2Code: 'de', name: 'Germany' },
   ];
 
-  filteredCountrys!: CountryI[];
+  filteredCountrys!: ICountry[];
 
   constructor(public countryService: CountryService) {}
 
@@ -37,10 +37,6 @@ export class CountrySelectorComponent implements OnInit {
     });
   }
 
-  stopPropagation(event: any) {
-    event.stopPropagation();
-  }
-
   resetFilter() {
     this.seachValue = '';
     this.filterCountrys();
@@ -48,7 +44,7 @@ export class CountrySelectorComponent implements OnInit {
 
   setCountry(shortCountry: string): void {
     this.country = shortCountry;
-    this.countryService.setService(shortCountry);
+    this.countryService.setCountryCode(shortCountry);
     this.trigger.closeMenu();
   }
 }

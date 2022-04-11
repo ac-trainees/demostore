@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "postinstall": "husky install"
+    "postinstall": "husky install && git config --local commit.template .github/.gitmessage"
   },
   "private": true,
   "dependencies": {

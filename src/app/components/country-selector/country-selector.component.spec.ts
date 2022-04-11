@@ -15,7 +15,7 @@ describe('CountrySelectorComponent', () => {
 
   let countryServiceStub = {
     country: 'error',
-    setService: jest.fn((country: string) => {
+    setCountryCode: jest.fn((country: string) => {
       countryServiceStub.country = country;
     }),
   };
@@ -72,11 +72,6 @@ describe('CountrySelectorComponent', () => {
       alpha2Code: 'us',
       name: 'United States',
     });
-  });
-
-  it('should be called', () => {
-    component.stopPropagation(eventStub);
-    expect(eventStub.stopPropagation.mock.calls.length).toBe(1);
   });
 
   it('should reset filter ad run filter', () => {

@@ -24,10 +24,14 @@ export class ProductService {
   constructor(private http: HttpClient, private country: CountryService) {}
 
   getProducts(): Observable<IProduct[]> {
-    return this.http.get<IProduct[]>(this.productUrl,{headers:  this.country.sendHeader()}).pipe(
-      tap((data) => this.setProductsSubject(data)),
-      catchError(this.handleError)
-    );
+    return this.http
+      .get<IProduct[]>(this.productUrl, {
+        headers: this.country.getHttpHeaders(),
+      })
+      .pipe(
+        tap((data) => this.setProductsSubject(data)),
+        catchError(this.handleError)
+      );
   }
 
   private handleError(err: HttpErrorResponse): Observable<never> {
