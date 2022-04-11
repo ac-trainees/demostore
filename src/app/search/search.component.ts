@@ -13,11 +13,9 @@ import { IProduct } from '../Interface/products';
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss']
+  styleUrls: ['./search.component.scss'],
 })
-
 export class SearchComponent implements OnInit, OnDestroy {
-
   query: string | null = '';
 
   allProductsBySearch: IProduct[] = [];
@@ -182,7 +180,6 @@ export class SearchComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.sub.unsubscribe();
   }
-
 }
 
 

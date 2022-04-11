@@ -17,6 +17,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { CountrySelectorModule } from './components/country-selector/country-selector.module';
 
 
 
@@ -44,16 +45,16 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatSelectModule,
     ReactiveFormsModule,
     MatCheckboxModule,
+    CountrySelectorModule,
     RouterModule.forRoot([
-      {path: '', component: LandingPageComponent},
-      {path: 'search', component: SearchComponent},
-      {path: 'search/:query', component: SearchComponent},
-      {path: 'product/:id', component: ProductDetailComponent},
-      {path: 'configurator/:id', component: ConfiguratorComponent}
-    ])
+      { path: '', component: LandingPageComponent },
+      { path: 'search', component: SearchComponent },
+      { path: 'search/:query', component: SearchComponent },
+      { path: 'product/:id', component: ProductDetailComponent },
+      { path: 'configurator/:id', component: ConfiguratorComponent },
+    ]),
   ],
   providers: [],
-  bootstrap: [HeaderComponent, AppComponent]
+  bootstrap: [HeaderComponent, AppComponent],
 })
-export class AppModule {
-}
+export class AppModule {}
