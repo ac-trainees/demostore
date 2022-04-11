@@ -1,15 +1,18 @@
-import {Component} from '@angular/core';
-import {Router} from '@angular/router';
-
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatChipsModule } from '@angular/material/chips';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-
-  constructor(private router: Router) {
-  }
+  constructor(private router: Router) {}
 
   private _searchDetails: string = '';
 
@@ -22,7 +25,6 @@ export class HeaderComponent {
   }
 
   onSearch(): void {
-    this.router.navigate(["search", this._searchDetails]);
+    this.router.navigate(['search', this._searchDetails]);
   }
-
 }
