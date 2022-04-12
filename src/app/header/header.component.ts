@@ -6,12 +6,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatChipsModule } from '@angular/material/chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatIconModule } from '@angular/material/icon';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
+  isHidden: boolean = false;
   constructor(private router: Router) {}
 
   private _searchDetails: string = '';
@@ -26,5 +29,10 @@ export class HeaderComponent {
 
   onSearch(): void {
     this.router.navigate(['search', this._searchDetails]);
+    this.toggleSearch();
+  }
+
+  toggleSearch(): void {
+    this.isHidden = !this.isHidden;
   }
 }

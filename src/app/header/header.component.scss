@@ -1,4 +1,7 @@
 .mat-toolbar {
+  display: flex;
+
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
@@ -6,16 +9,17 @@
 a {
   text-decoration: none;
   color: white;
-}
-
-.mat-chip-list a {
-  color: black;
+  justify-self: self-start;
 }
 
 .mat-form-field {
-  width: 400px;
+  width: 100%;
 }
 
 .mat-stroked-button {
   margin-left: 15px;
+}
+
+.hidden {
+  display: none;
 }

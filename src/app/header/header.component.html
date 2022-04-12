@@ -1,26 +1,22 @@
 <mat-toolbar color="primary">
-  <span><a routerLink="/"> Demostore</a></span>
-  <span>
-    <mat-chip-list aria-label="links">
-      <mat-chip>
-        <a routerLink="/search">Search</a>
-      </mat-chip>
-    </mat-chip-list>
-  </span>
-  <span>
-    <mat-form-field appearance="fill">
-      <mat-label>Seach</mat-label>
-      <input
-        matInput
-        type="seach"
-        [(ngModel)]="searchDetails"
-        name="search"
-        placeholder="Search"
-        aria-label="Search"
-        (keyup.enter)="onSearch()"
-      />
-    </mat-form-field>
-    <button mat-stroked-button (click)="onSearch()">Seach</button>
-  </span>
-  <app-country-selector></app-country-selector>
+  <app-country-selector [class.hidden]="isHidden"></app-country-selector>
+
+  <a routerLink="/" [class.hidden]="isHidden">Demostore</a>
+
+  <mat-form-field appearance="fill" [class.hidden]="!isHidden">
+    <input
+      matInput
+      type="seach"
+      [(ngModel)]="searchDetails"
+      name="search"
+      placeholder="Search"
+      (keyup.enter)="onSearch()"
+    />
+  </mat-form-field>
+
+  <button mat-stroked-button (click)="toggleSearch()">
+    <mat-icon aria-hidden="false" aria-label="Example home icon">
+      search
+    </mat-icon>
+  </button>
 </mat-toolbar>
