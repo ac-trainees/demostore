@@ -32,9 +32,13 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   statusList: string[] = [];
 
+  releaseDateList: string[] = ['Newest', 'Oldest'];
+
   categories = new FormControl();
 
   status = new FormControl();
+
+  releaseDate = new FormControl();
 
   _selectedCategory: string = '';
 
@@ -42,18 +46,12 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   _selectedReleaseDate: string = '';
 
-  releaseDate: any[] = [
-    { value: 'newest', viewValue: 'Newest' },
-    { value: 'oldest', viewValue: 'Oldest' },
-  ];
-
   constructor(private route: ActivatedRoute,
     private router: Router,
     private productService: ProductService,
     private queryData: QueryService) { }
 
   private _searchDetails: string = '';
-
 
   get searchDetails(): string {
     return this._searchDetails;
@@ -83,18 +81,15 @@ export class SearchComponent implements OnInit, OnDestroy {
 
     this._selectedReleaseDate = value;
 
-    switch (this._selectedReleaseDate) {
-
-      case 'newest': this.filteredProducts.sort((a, b) => Number(new Date(b.releaseDate)) - Number(new Date(a.releaseDate)));
-        break;
-
-      case 'oldest': this.filteredProducts.sort((a, b) => Number(new Date(a.releaseDate)) - Number(new Date(b.releaseDate)));
-        break;
-
-      default: ;
+    if (this.filteredProducts.length === 0) {
+      sortProductsByReleaseDate(this.allProductsBySearch, value);
+      this.visibleProducts = this.allProductsBySearch.slice(0, 12);
     }
-    this.visibleProducts = this.filteredProducts.slice(0, 12);
 
+    if (this.filteredProducts.length > 0) {
+      sortProductsByReleaseDate(this.filteredProducts, value);
+      this.visibleProducts = this.filteredProducts.slice(0, 12);
+    }
   }
 
   resetFilterValues() {
@@ -192,6 +187,23 @@ const findItemsByCategory = (category: string, arr: IProduct[]) =>
 
 const findItemsByStatus = (status: string, arr: IProduct[]) =>
   arr.filter(el => el.status === status);
+
+
+const sortProductsByReleaseDate = (array: IProduct[], date: string) => {
+  switch (date) {
+    case 'Newest':
+      array.sort((a, b) =>
+        Number(new Date(b.releaseDate)) - Number(new Date(a.releaseDate)));
+    break;
+
+    case 'Oldest':
+      array.sort((a, b) =>
+        Number(new Date(a.releaseDate)) - Number(new Date(b.releaseDate)));
+    break;
+    default: ;
+  }
+}
+
 
 
 

@@ -1,3 +1,6 @@
+$card-hover-bg: rgba(202, 199, 199, 0.11);
+$mat-select-bg: rgb(255, 255, 255);
+
 .my-card-content {
   padding: 16px;
 }
@@ -14,27 +17,21 @@
   margin-bottom: 8px;
 }
 .card:hover {
-  background-color: rgba(202, 199, 199, 0.11);
-}
-.mat-elevation-z1 {
-  box-shadow: 0 0.625rem 1.25rem #0000000d;
+  background-color: $card-hover-bg;
 }
 mat-card::ng-deep.mat-card-title {
   font-size: 14px;
 }
-mat-card::ng-deep.mat-card-content {
-  color: grey;
-}
 mat-form-field::ng-deep.mat-form-field-flex {
-  background-color: rgb(255, 255, 255);
+  background-color: $mat-select-bg;
 }
 mat-form-field::ng-deep.mat-form-field-underline {
   width: 0;
 }
 .mat-form-field {
-  text-align: right;
   font-size: 16px;
 }
 mat-form-field::ng-deep.mat-form-field-infix {
-  width: 130px;
+  width: 150px;
+  margin: 0 20px;
 }
