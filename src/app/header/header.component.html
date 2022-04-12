@@ -1,21 +1,29 @@
-<mat-toolbar color="primary">
-  <app-country-selector [class.hidden]="isHidden"></app-country-selector>
+<mat-toolbar [color]="currentColor" [class.mat-elevation-z8]="true">
+  <div class="countryAndTitle" [class.hidden]="isHidden">
+    <app-country-selector> </app-country-selector>
+    <a routerLink="/">Demostore</a>
+  </div>
 
-  <a routerLink="/" [class.hidden]="isHidden">Demostore</a>
+  <div class="seachbarfield" [class.hidden]="!isHidden">
+    <mat-form-field appearance="fill">
+      <input
+        matInput
+        type="seach"
+        [(ngModel)]="searchDetails"
+        name="search"
+        placeholder="Search"
+        (keyup.enter)="onSearch()"
+      />
+    </mat-form-field>
+  </div>
 
-  <mat-form-field appearance="fill" [class.hidden]="!isHidden">
-    <input
-      matInput
-      type="seach"
-      [(ngModel)]="searchDetails"
-      name="search"
-      placeholder="Search"
-      (keyup.enter)="onSearch()"
-    />
-  </mat-form-field>
-
-  <button mat-stroked-button (click)="toggleSearch()">
-    <mat-icon aria-hidden="false" aria-label="Example home icon">
+  <button mat-icon-button>
+    <mat-icon
+      aria-hidden="false"
+      aria-label="Example home icon"
+      (click)="toggleSearch()"
+      [color]="isHidden ? mainColor : offColor"
+    >
       search
     </mat-icon>
   </button>

@@ -15,6 +15,9 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class HeaderComponent {
   isHidden: boolean = false;
+  currentColor: string = 'primary';
+  mainColor: string = 'primary';
+  offColor: string = 'white';
   constructor(private router: Router) {}
 
   private _searchDetails: string = '';
@@ -33,6 +36,8 @@ export class HeaderComponent {
   }
 
   toggleSearch(): void {
+    this._searchDetails = '';
     this.isHidden = !this.isHidden;
+    this.currentColor = this.isHidden ? this.offColor : this.mainColor;
   }
 }
