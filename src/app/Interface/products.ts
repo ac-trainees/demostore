@@ -6,6 +6,6 @@ export interface IProduct {
   category: string,
   image: string,
   status: string,
-  releaseDate: any;
+  releaseDate: string;
 }
 

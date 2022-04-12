@@ -38,7 +38,6 @@ export class ProductService {
 
     return this.http.get<any>(this.productUrl + '/search/' + queryParams)
       .pipe(
-        tap(data => console.log('queryParams: ', data)),
         catchError(this.handleError)
       )
   }

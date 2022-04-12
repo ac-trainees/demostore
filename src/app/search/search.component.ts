@@ -1,10 +1,8 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatOption } from '@angular/material/core';
 import { PageEvent } from '@angular/material/paginator';
-import { MatSelect } from '@angular/material/select';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription, takeUntil } from 'rxjs';
 import { ProductService } from '../api/products.service';
 import { QueryService } from '../api/query.service';
 import { IProduct } from '../Interface/products';
@@ -40,18 +38,20 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   releaseDate = new FormControl();
 
-  _selectedCategory: string = '';
+  private _selectedCategory: string = '';
 
-  _selectedStatus: string = '';
+  private _selectedStatus: string = '';
 
-  _selectedReleaseDate: string = '';
+  private _selectedReleaseDate: string = '';
+
+  private readonly destroy$ = new Subject<void>();
+
+  private _searchDetails: string = '';
 
   constructor(private route: ActivatedRoute,
     private router: Router,
     private productService: ProductService,
-    private queryData: QueryService) { }
-
-  private _searchDetails: string = '';
+    private queryService: QueryService) { }
 
   get searchDetails(): string {
     return this._searchDetails;
@@ -69,6 +69,10 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.visibleProducts = this.filteredProducts.slice(0, 12);
   }
 
+  get selectedCategory() {
+    return this._selectedCategory;
+  }
+
   set selectedStatus(value: string) {
     this.resetFilterValues();
     this._selectedStatus = value;
@@ -77,8 +81,11 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.visibleProducts = this.filteredProducts.slice(0, 12);
   }
 
-  set sortByReleaseDate(value: string) {
+  get selectedStatus() {
+    return this._selectedStatus;
+  }
 
+  set selectedReleaseDate(value: string) {
     this._selectedReleaseDate = value;
 
     if (this.filteredProducts.length === 0) {
@@ -92,6 +99,10 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
   }
 
+  get selectedReleaseDate() {
+    return this._selectedReleaseDate;
+  }
+
   resetFilterValues() {
     this._selectedStatus = '';
     this._selectedCategory = '';
@@ -101,15 +112,17 @@ export class SearchComponent implements OnInit, OnDestroy {
   onSearch(): void {
     this.router.navigate(["search", this._searchDetails]);
     this.query = this._searchDetails;
-    this.sub = this.productService.getProductsByQuery(this._searchDetails).subscribe({
-      next: data => {
-        this.resetFilterValues();
-        this.allProductsBySearch = data.results;
-        this.searchCount = data.count;
-        this.visibleProducts = this.allProductsBySearch.slice(0, 12);
-        this.getCategoryList();
-        this.getStatusList();
-      }
+    this.productService.getProductsByQuery(this._searchDetails)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: data => {
+          this.resetFilterValues();
+          this.allProductsBySearch = data.results;
+          this.searchCount = data.count;
+          this.visibleProducts = this.allProductsBySearch.slice(0, 12);
+          this.getCategoryList();
+          this.getStatusList();
+        }
     })
   }
 
@@ -155,25 +168,30 @@ export class SearchComponent implements OnInit, OnDestroy {
 
     this.query = this.route.snapshot.paramMap.get("query");
 
-    this.sub = this.queryData.queryData$.subscribe(query => {
-      if (query) {
-        this.productService.getProductsByQuery(query).subscribe({
-          next: data => {
-            this.resetFilterValues();
-            this.allProductsBySearch = data.results;
-            this.searchCount = data.count;
-            this.query = query;
-            this.visibleProducts = this.allProductsBySearch.slice(0, 12);
-            this.getCategoryList();
-            this.getStatusList();
-          }
-        })
-      }
-    });
+    this.queryService.queryData$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(query => {
+        if (query) {
+          this.productService.getProductsByQuery(query)
+            .pipe(takeUntil(this.destroy$))
+            .subscribe({
+              next: data => {
+                this.resetFilterValues();
+                this.allProductsBySearch = data.results;
+                this.searchCount = data.count;
+                this.query = query;
+                this.visibleProducts = this.allProductsBySearch.slice(0, 12);
+                this.getCategoryList();
+                this.getStatusList();
+              }
+            })
+        }
+      });
   }
 
   ngOnDestroy(): void {
-    this.sub.unsubscribe();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
 
@@ -194,12 +212,12 @@ const sortProductsByReleaseDate = (array: IProduct[], date: string) => {
     case 'Newest':
       array.sort((a, b) =>
         Number(new Date(b.releaseDate)) - Number(new Date(a.releaseDate)));
-    break;
+      break;
 
     case 'Oldest':
       array.sort((a, b) =>
         Number(new Date(a.releaseDate)) - Number(new Date(b.releaseDate)));
-    break;
+      break;
     default: ;
   }
 }
