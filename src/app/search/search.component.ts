@@ -13,6 +13,7 @@ import { IProduct } from '../Interface/products';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
 })
+
 export class SearchComponent implements OnInit, OnDestroy {
   query: string | null = '';
 
@@ -47,6 +48,8 @@ export class SearchComponent implements OnInit, OnDestroy {
   private readonly destroy$ = new Subject<void>();
 
   private _searchDetails: string = '';
+
+  breakPoint!: number;
 
   constructor(private route: ActivatedRoute,
     private router: Router,
@@ -103,6 +106,10 @@ export class SearchComponent implements OnInit, OnDestroy {
     return this._selectedReleaseDate;
   }
 
+  onResize(event: any) {
+    this.breakPoint = (event.target.innerWidth < 1200) ? 2 : 3;
+  }
+
   resetFilterValues() {
     this._selectedStatus = '';
     this._selectedCategory = '';
@@ -123,7 +130,7 @@ export class SearchComponent implements OnInit, OnDestroy {
           this.getCategoryList();
           this.getStatusList();
         }
-    })
+      })
   }
 
   toProductDetailPage(id: number): void {
@@ -165,6 +172,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.breakPoint = (window.innerWidth < 1000) ? 2 : 3;
 
     this.query = this.route.snapshot.paramMap.get("query");
 
@@ -221,6 +229,8 @@ const sortProductsByReleaseDate = (array: IProduct[], date: string) => {
     default: ;
   }
 }
+
+
 
 
 
