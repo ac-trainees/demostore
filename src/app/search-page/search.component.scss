@@ -1,4 +1,3 @@
-$card-hover-bg: rgba(202, 199, 199, 0.11);
 $mat-select-bg: rgb(255, 255, 255);
 $wrapper-bg: rgb(241, 239, 239);
 $box-shadow: 0 0 1.25rem #0000001a;
@@ -18,12 +17,15 @@ $box-shadow: 0 0 1.25rem #0000001a;
 .card {
   height: 100%;
   width: 100%;
+  transition: 1s ease;
 }
 .card:hover {
-  background-color: $card-hover-bg;
+  transform: scale(0.97);
 }
-mat-card::ng-deep.mat-card-title {
-  font-size: 14px;
+.mat-card {
+  & .mat-card-title {
+    font-size: 14px;
+  }
 }
 mat-form-field::ng-deep.mat-form-field-flex {
   background-color: $mat-select-bg;

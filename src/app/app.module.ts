@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
 import { RouterModule } from '@angular/router';
 import { LandingPageComponent } from './landing-page/landing-page.component';
-import { SearchComponent } from './search/search.component';
+import { SearchComponent } from './search-page/search.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
@@ -16,7 +16,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CountrySelectorModule } from './components/country-selector/country-selector.module';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -51,7 +50,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatFormFieldModule,
     MatSelectModule,
     ReactiveFormsModule,
-    MatCheckboxModule,
     CountrySelectorModule,
     MatMenuModule,
     MatToolbarModule,

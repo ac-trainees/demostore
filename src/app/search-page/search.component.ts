@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -173,10 +173,24 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.breakPoint = (window.innerWidth < 1000) ? 2 : 3;
-
     this.query = this.route.snapshot.paramMap.get("query");
 
-    this.queryService.queryData$
+    if (this.query) {
+      this.productService.getProductsByQuery(this.query)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
+          next: data => {
+            this.resetFilterValues();
+            this.allProductsBySearch = data.results;
+            this.searchCount = data.count;
+            this.visibleProducts = this.allProductsBySearch.slice(0, 12);
+            this.getCategoryList();
+            this.getStatusList();
+          }
+        })
+    }
+
+     this.queryService.queryData$
       .pipe(takeUntil(this.destroy$))
       .subscribe(query => {
         if (query) {
