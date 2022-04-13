@@ -1,6 +1,4 @@
-$mat-select-bg: rgb(255, 255, 255);
 $wrapper-bg: rgb(241, 239, 239);
-$box-shadow: 0 0 1.25rem #0000001a;
 
 .wrapper {
   background-color: $wrapper-bg;
@@ -11,45 +9,4 @@ $box-shadow: 0 0 1.25rem #0000001a;
   margin: 0 auto;
   width: 80%;
 }
-.my-card-content {
-  padding: 16px;
-}
-.card {
-  height: 100%;
-  width: 100%;
-  transition: 1s ease;
-}
-.card:hover {
-  transform: scale(0.97);
-}
-.mat-card {
-  & .mat-card-title {
-    font-size: 14px;
-  }
-}
-mat-form-field::ng-deep.mat-form-field-flex {
-  background-color: $mat-select-bg;
-}
-mat-form-field::ng-deep.mat-form-field-underline {
-  width: 0;
-}
-.mat-form-field {
-  font-size: 16px;
-}
-mat-form-field::ng-deep.mat-form-field-infix {
-  width: 150px;
-  margin: 0 20px;
-}
-.mat-paginator{
-  background: none;
-}
-#container-select {
-  background-color: $mat-select-bg;
-  box-shadow: $box-shadow;
-}
-mat-grid-tile::ng-deep.mat-grid-tile-content {
-  align-items: unset;
-}
-mat-form-field::ng-deep.mat-form-field-flex.ng-tns-c76-3 {
-  background: none;
-}
+

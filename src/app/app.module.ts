@@ -24,6 +24,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatGridListModule} from '@angular/material/grid-list';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { FilterComponent } from './search-page/filter-component/filter.component';
+import { SortComponent } from './search-page/sort-component/sort.component';
+import { CardComponent } from 'src/shared/card-component/card.component';
+import { SearchResultComponent } from './search-page/search-result.component/search-result.component';
 
 
 
@@ -37,6 +41,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     AppComponent,
     ConfiguratorComponent,
     LandingPageComponent,
+    FilterComponent,
+    SortComponent,
+    CardComponent,
+    SearchResultComponent
   ],
   imports: [
     BrowserModule,

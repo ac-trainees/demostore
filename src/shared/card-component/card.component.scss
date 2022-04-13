@@ -1,0 +1,16 @@
+.my-card-content {
+  padding: 16px;
+}
+.card {
+  height: 100%;
+  width: 100%;
+  transition: 1s ease;
+}
+.card:hover {
+  transform: scale(0.97);
+}
+.mat-card {
+  & .mat-card-title {
+    font-size: 14px;
+  }
+}

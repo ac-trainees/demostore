@@ -1,8 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject, Subscription, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { ProductService } from '../api/products.service';
 import { QueryService } from '../api/query.service';
 import { IProduct } from '../Interface/products';
@@ -15,6 +14,7 @@ import { IProduct } from '../Interface/products';
 })
 
 export class SearchComponent implements OnInit, OnDestroy {
+
   query: string | null = '';
 
   allProductsBySearch: IProduct[] = [];
@@ -23,33 +23,21 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   searchCount: number | undefined;
 
-  sub!: Subscription;
-
   visibleProducts: IProduct[] = [];
 
   categoryList: string[] = [];
 
   statusList: string[] = [];
 
-  releaseDateList: string[] = ['Newest', 'Oldest'];
+  selectedCategory: string = '';
 
-  categories = new FormControl();
+  selectedStatus: string = '';
 
-  status = new FormControl();
-
-  releaseDate = new FormControl();
-
-  private _selectedCategory: string = '';
-
-  private _selectedStatus: string = '';
-
-  private _selectedReleaseDate: string = '';
+  selectedReleaseDate: string = '';
 
   private readonly destroy$ = new Subject<void>();
 
   private _searchDetails: string = '';
-
-  breakPoint!: number;
 
   constructor(private route: ActivatedRoute,
     private router: Router,
@@ -64,56 +52,10 @@ export class SearchComponent implements OnInit, OnDestroy {
     this._searchDetails = value;
   }
 
-  set selectedCategory(value: string) {
-    this.resetFilterValues();
-    this._selectedCategory = value;
-
-    this.filteredProducts = findItemsByCategory(this._selectedCategory, this.allProductsBySearch);
-    this.visibleProducts = this.filteredProducts.slice(0, 12);
-  }
-
-  get selectedCategory() {
-    return this._selectedCategory;
-  }
-
-  set selectedStatus(value: string) {
-    this.resetFilterValues();
-    this._selectedStatus = value;
-
-    this.filteredProducts = findItemsByStatus(this._selectedStatus, this.allProductsBySearch);
-    this.visibleProducts = this.filteredProducts.slice(0, 12);
-  }
-
-  get selectedStatus() {
-    return this._selectedStatus;
-  }
-
-  set selectedReleaseDate(value: string) {
-    this._selectedReleaseDate = value;
-
-    if (this.filteredProducts.length === 0) {
-      sortProductsByReleaseDate(this.allProductsBySearch, value);
-      this.visibleProducts = this.allProductsBySearch.slice(0, 12);
-    }
-
-    if (this.filteredProducts.length > 0) {
-      sortProductsByReleaseDate(this.filteredProducts, value);
-      this.visibleProducts = this.filteredProducts.slice(0, 12);
-    }
-  }
-
-  get selectedReleaseDate() {
-    return this._selectedReleaseDate;
-  }
-
-  onResize(event: any) {
-    this.breakPoint = (event.target.innerWidth < 1200) ? 2 : 3;
-  }
-
   resetFilterValues() {
-    this._selectedStatus = '';
-    this._selectedCategory = '';
-    this._selectedReleaseDate = '';
+    this.selectedStatus = '';
+    this.selectedCategory = '';
+    this.selectedReleaseDate = '';
   }
 
   onSearch(): void {
@@ -124,6 +66,7 @@ export class SearchComponent implements OnInit, OnDestroy {
       .subscribe({
         next: data => {
           this.resetFilterValues();
+          this.filteredProducts = [];
           this.allProductsBySearch = data.results;
           this.searchCount = data.count;
           this.visibleProducts = this.allProductsBySearch.slice(0, 12);
@@ -131,10 +74,6 @@ export class SearchComponent implements OnInit, OnDestroy {
           this.getStatusList();
         }
       })
-  }
-
-  toProductDetailPage(id: number): void {
-    this.router.navigate(["product", id]);
   }
 
   onPageChange(event: PageEvent, productsArray: IProduct[]) {
@@ -171,8 +110,35 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.statusList = uniqueStatusList;
   }
 
+  onCategoryChange(category: string) {
+    this.resetFilterValues();
+    this.selectedCategory = category;
+
+    this.filteredProducts = findItemsByCategory(this.selectedCategory, this.allProductsBySearch);
+    this.visibleProducts = this.filteredProducts.slice(0, 12);
+  }
+
+  onStatusChange(status: string) {
+    this.resetFilterValues();
+    this.selectedStatus = status;
+
+    this.filteredProducts = findItemsByStatus(this.selectedStatus, this.allProductsBySearch);
+    this.visibleProducts = this.filteredProducts.slice(0, 12);
+  }
+
+  onReleaseDateChange(value: string) {
+    this.selectedReleaseDate = value;
+
+    if (this.filteredProducts.length === 0) {
+      sortProductsByReleaseDate(this.allProductsBySearch, value);
+      this.visibleProducts = this.allProductsBySearch.slice(0, 12);
+    } else {
+      sortProductsByReleaseDate(this.filteredProducts, value);
+      this.visibleProducts = this.filteredProducts.slice(0, 12);
+    }
+  }
+
   ngOnInit(): void {
-    this.breakPoint = (window.innerWidth < 1000) ? 2 : 3;
     this.query = this.route.snapshot.paramMap.get("query");
 
     if (this.query) {

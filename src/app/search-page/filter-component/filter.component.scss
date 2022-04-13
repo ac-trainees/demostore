@@ -1,0 +1,27 @@
+$mat-select-bg: rgb(255, 255, 255);
+$wrapper-bg: rgb(241, 239, 239);
+$box-shadow: 0 0 1.25rem #0000001a;
+
+#container-select {
+  background-color: $mat-select-bg;
+  box-shadow: $box-shadow;
+}
+mat-form-field::ng-deep.mat-form-field-flex {
+  background-color: $mat-select-bg;
+}
+mat-form-field::ng-deep.mat-form-field-underline {
+  width: 0;
+}
+.mat-form-field {
+  font-size: 16px;
+}
+mat-form-field::ng-deep.mat-form-field-infix {
+  width: 150px;
+  margin: 0 20px;
+}
+.mat-paginator{
+  background: none;
+}
+mat-grid-tile::ng-deep.mat-grid-tile-content {
+  align-items: unset;
+}
