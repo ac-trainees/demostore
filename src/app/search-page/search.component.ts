@@ -113,34 +113,6 @@ export class SearchComponent implements OnInit, OnDestroy {
 
     this.statusList = uniqueStatusList;
   }
-/*
-  onCategoryChange(category: string) {
-    this.resetFilterValues();
-    this.selectedCategory = category;
-
-    this.filteredProducts = findItemsByCategory(this.selectedCategory, this.allProductsBySearch);
-    this.visibleProducts = this.filteredProducts.slice(0, 12);
-  }
-
-  onStatusChange(status: string) {
-    this.resetFilterValues();
-    this.selectedStatus = status;
-
-    this.filteredProducts = findItemsByStatus(this.selectedStatus, this.allProductsBySearch);
-    this.visibleProducts = this.filteredProducts.slice(0, 12);
-  }
-
-  onReleaseDateChange(value: string) {
-    this.selectedReleaseDate = value;
-
-    if (this.filteredProducts.length === 0) {
-      sortProductsByReleaseDate(this.allProductsBySearch, value);
-      this.visibleProducts = this.allProductsBySearch.slice(0, 12);
-    } else {
-      sortProductsByReleaseDate(this.filteredProducts, value);
-      this.visibleProducts = this.filteredProducts.slice(0, 12);
-    }
-  } */
 
   ngOnInit(): void {
     this.query = this.route.snapshot.paramMap.get("query");
