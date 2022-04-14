@@ -11,21 +11,21 @@ exports[`CountrySelectorComponent should create 1`] = `
   trigger={[Function MatMenuTrigger]}
 >
   <button
-    aria-haspopup="true"
-    class="mat-focus-indicator mat-menu-trigger mat-raised-button mat-button-base mat-primary"
-    color="primary"
-    mat-raised-button=""
-    yposition="before"
+    class="mat-focus-indicator mat-icon-button mat-button-base"
+    mat-icon-button=""
   >
     <span
       class="mat-button-wrapper"
     >
       <span
-        class="fi fi-error"
+        aria-haspopup="true"
+        class="mat-menu-trigger fi fi-error"
+        color="primary"
+        yposition="before"
       />
     </span>
     <span
-      class="mat-ripple mat-button-ripple"
+      class="mat-ripple mat-button-ripple mat-button-ripple-round"
       matripple=""
     />
     <span

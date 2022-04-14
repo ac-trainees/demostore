@@ -28,9 +28,7 @@ import { FilterComponent } from './search-page/filter-component/filter.component
 import { SortComponent } from './search-page/sort-component/sort.component';
 import { CardComponent } from 'src/shared/card-component/card.component';
 import { SearchResultComponent } from './search-page/search-result.component/search-result.component';
-
-
-
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -67,6 +65,7 @@ import { SearchResultComponent } from './search-page/search-result.component/sea
     MatButtonModule,
     MatGridListModule,
     FlexLayoutModule,
+    MatIconModule,
     RouterModule.forRoot([
       { path: '', component: LandingPageComponent },
       { path: 'search', component: SearchComponent },

@@ -1,12 +1,12 @@
-<button
-  mat-raised-button
-  color="primary"
-  yPosition="before"
-  [matMenuTriggerFor]="menu"
-  #ClickMatMenuTrigger="matMenuTrigger"
-  (click)="resetFilter()"
->
-  <span class="fi fi-{{ country }}"></span>
+<button mat-icon-button>
+  <span
+    color="primary"
+    yPosition="before"
+    [matMenuTriggerFor]="menu"
+    #ClickMatMenuTrigger="matMenuTrigger"
+    (click)="resetFilter()"
+    class="fi fi-{{ country }}"
+  ></span>
 </button>
 
 <mat-menu #menu="matMenu">
