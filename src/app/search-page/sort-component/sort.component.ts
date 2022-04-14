@@ -1,5 +1,7 @@
-import { Component, EventEmitter, OnChanges, Output } from "@angular/core";
+import { Component, EventEmitter, OnChanges, OnDestroy, Output } from "@angular/core";
 import { FormControl } from "@angular/forms";
+import { Subject, takeUntil } from "rxjs";
+import { FilterService } from "src/app/services/filter.services";
 
 @Component({
   selector: 'app-search-sort',
@@ -7,9 +9,11 @@ import { FormControl } from "@angular/forms";
   styleUrls: ['./sort.component.scss'],
 })
 
-export class SortComponent implements OnChanges {
+export class SortComponent implements OnDestroy {
 
-  @Output() releaseDateChanged: EventEmitter<string> = new EventEmitter();
+  private readonly destroy$ = new Subject<void>();
+
+  constructor(private filterService: FilterService) { }
 
   releaseDateList: string[] = ['Newest', 'Oldest'];
 
@@ -19,10 +23,23 @@ export class SortComponent implements OnChanges {
 
   set selectedReleaseDate(value: string) {
     this._selectedReleaseDate = value;
-    this.releaseDateChanged.emit(this.selectedReleaseDate);
-
+    this.filterService.setReleaseDateData(this.selectedReleaseDate)
   }
+
   get selectedReleaseDate() {
     return this._selectedReleaseDate;
+  }
+
+  ngOnInit() {
+    this.filterService.categoryData$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(data => {
+        this._selectedReleaseDate = data;
+      });
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

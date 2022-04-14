@@ -1,10 +1,11 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { ProductService } from '../api/products.service';
 import { QueryService } from '../api/query.service';
 import { IProduct } from '../Interface/products';
+import { FilterService } from '../services/filter.services';
 
 
 @Component({
@@ -42,7 +43,9 @@ export class SearchComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute,
     private router: Router,
     private productService: ProductService,
-    private queryService: QueryService) { }
+    private queryService: QueryService,
+    private filterService: FilterService) { }
+
 
   get searchDetails(): string {
     return this._searchDetails;
@@ -61,6 +64,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   onSearch(): void {
     this.router.navigate(["search", this._searchDetails]);
     this.query = this._searchDetails;
+
     this.productService.getProductsByQuery(this._searchDetails)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
@@ -109,7 +113,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
     this.statusList = uniqueStatusList;
   }
-
+/*
   onCategoryChange(category: string) {
     this.resetFilterValues();
     this.selectedCategory = category;
@@ -136,10 +140,41 @@ export class SearchComponent implements OnInit, OnDestroy {
       sortProductsByReleaseDate(this.filteredProducts, value);
       this.visibleProducts = this.filteredProducts.slice(0, 12);
     }
-  }
+  } */
 
   ngOnInit(): void {
     this.query = this.route.snapshot.paramMap.get("query");
+
+    this.filterService.categoryData$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(category => {
+        this.resetFilterValues();
+        this.selectedCategory = category;
+        this.filteredProducts = findItemsByCategory(this.selectedCategory, this.allProductsBySearch);
+        this.visibleProducts = this.filteredProducts.slice(0, 12);
+      })
+
+    this.filterService.statusData$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(status => {
+        this.resetFilterValues();
+        this.selectedStatus = status;
+        this.filteredProducts = findItemsByStatus(this.selectedStatus, this.allProductsBySearch);
+        this.visibleProducts = this.filteredProducts.slice(0, 12);
+      })
+
+    this.filterService.releaseDateData$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(value => {
+        this.selectedReleaseDate = value;
+            if (this.filteredProducts.length === 0) {
+              sortProductsByReleaseDate(this.allProductsBySearch, value);
+              this.visibleProducts = this.allProductsBySearch.slice(0, 12);
+            } else {
+              sortProductsByReleaseDate(this.filteredProducts, value);
+              this.visibleProducts = this.filteredProducts.slice(0, 12);
+            }
+      })
 
     if (this.query) {
       this.productService.getProductsByQuery(this.query)

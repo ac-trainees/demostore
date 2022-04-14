@@ -1,5 +1,7 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from "@angular/core";
+import { Component, EventEmitter, Input, OnDestroy, Output } from "@angular/core";
 import { FormControl } from "@angular/forms";
+import { Subject, takeUntil } from "rxjs";
+import { FilterService } from "src/app/services/filter.services";
 
 @Component({
   selector: 'app-search-filter',
@@ -7,14 +9,13 @@ import { FormControl } from "@angular/forms";
   styleUrls: ['./filter.component.scss'],
 })
 
-export class FilterComponent {
+export class FilterComponent implements OnDestroy {
 
   @Input() categoryList: string[] = [];
   @Input() statusList: string[] = [];
   @Input() query: string | null = '';
 
-  @Output() categoryChanged: EventEmitter<string> = new EventEmitter();
-  @Output() statusChanged: EventEmitter<string> = new EventEmitter()
+  private readonly destroy$ = new Subject<void>();
 
   private _selectedCategory: string = '';
 
@@ -24,10 +25,13 @@ export class FilterComponent {
 
   status = new FormControl();
 
+  constructor(private filterService: FilterService) { }
+
   set selectedCategory(value: string) {
-    this.resetFilterValues();
+    this.filterService.resetStatusData();
+    this.filterService.resetReleaseDateData();
     this._selectedCategory = value;
-    this.categoryChanged.emit(this.selectedCategory);
+    this.filterService.setCategoryData(this.selectedCategory);
   }
 
   get selectedCategory() {
@@ -35,17 +39,32 @@ export class FilterComponent {
   }
 
   set selectedStatus(value: string) {
-    this.resetFilterValues();
+    this.filterService.resetReleaseDateData();
+    this.filterService.resetCategoryData();
     this._selectedStatus = value;
-    this.statusChanged.emit(this.selectedStatus);
+    this.filterService.setStatusData(this.selectedStatus);
   }
 
   get selectedStatus() {
     return this._selectedStatus;
   }
 
-  resetFilterValues() {
-    this._selectedStatus = '';
-    this._selectedCategory = '';
+  ngOnInit() {
+    this.filterService.categoryData$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(data => {
+        this._selectedCategory = data;
+      });
+
+    this.filterService.statusData$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(data => {
+        this._selectedStatus = data;
+      });
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

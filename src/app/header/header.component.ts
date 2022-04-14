@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatChipsModule } from '@angular/material/chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FilterService } from '../services/filter.services';
 
 @Component({
   selector: 'app-header',
@@ -17,7 +18,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 export class HeaderComponent {
 
   constructor(private router: Router,
-    private queryData: QueryService) { }
+    private queryData: QueryService,
+    private filterService: FilterService) { }
 
   private _searchDetails: string = '';
 
@@ -31,6 +33,9 @@ export class HeaderComponent {
 
   onSearch(): void {
     this.router.navigate(["search", this._searchDetails]);
-    this.queryData.setQueryData(this._searchDetails)
+    this.queryData.setQueryData(this._searchDetails);
+    this.filterService.resetCategoryData();
+    this.filterService.resetStatusData();
+    this.filterService.resetReleaseDateData();
   }
 }

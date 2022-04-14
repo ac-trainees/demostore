@@ -1,7 +1,7 @@
 <div class="wrapper">
 
   <app-search-filter [categoryList]="categoryList" [statusList]="statusList" [query]="query"
-    (categoryChanged)="onCategoryChange($event)" (statusChanged)="onStatusChange($event)">
+  >
   </app-search-filter>
 
   <div class="container">
@@ -19,7 +19,7 @@
         <h2>{{this.searchCount}} Results for "{{this.query}}"</h2>
       </div>
 
-      <app-search-sort (releaseDateChanged)="onReleaseDateChange($event)"></app-search-sort>
+      <app-search-sort></app-search-sort>
 
     </div>
 
