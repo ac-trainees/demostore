@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, Output } from "@angular/core";
+import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { Subject, takeUntil } from "rxjs";
 import { FilterService } from "src/app/services/filter.services";
@@ -9,7 +9,7 @@ import { FilterService } from "src/app/services/filter.services";
   styleUrls: ['./filter.component.scss'],
 })
 
-export class FilterComponent implements OnDestroy {
+export class FilterComponent implements OnDestroy, OnInit {
 
   @Input() categoryList: string[] = [];
   @Input() statusList: string[] = [];

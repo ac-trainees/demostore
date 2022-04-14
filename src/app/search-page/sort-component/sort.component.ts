@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnChanges, OnDestroy, Output } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { Subject, takeUntil } from "rxjs";
 import { FilterService } from "src/app/services/filter.services";
@@ -9,7 +9,7 @@ import { FilterService } from "src/app/services/filter.services";
   styleUrls: ['./sort.component.scss'],
 })
 
-export class SortComponent implements OnDestroy {
+export class SortComponent implements OnDestroy, OnInit {
 
   private readonly destroy$ = new Subject<void>();
 
