@@ -1,10 +1,10 @@
 <mat-toolbar [color]="currentColor" [class.mat-elevation-z8]="true">
-  <div class="countryAndTitle" [class.hidden]="isHidden">
+  <div *ngIf="!isHidden" class="countryAndTitle">
     <app-country-selector> </app-country-selector>
     <a routerLink="/">Demostore</a>
   </div>
 
-  <div class="seachbarfield" [class.hidden]="!isHidden">
+  <div [@fade]="isHidden ? 'show' : 'hide'" class="seachbarfield">
     <mat-form-field appearance="fill">
       <input
         matInput
@@ -16,7 +16,6 @@
       />
     </mat-form-field>
   </div>
-
   <button mat-icon-button>
     <mat-icon
       aria-hidden="false"

@@ -1,3 +1,10 @@
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -5,6 +12,14 @@ import { Router } from '@angular/router';
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
+  animations: [
+    trigger('fade', [
+      state('show', style({ transform: 'translateY(0%)', opacity: 1 })),
+      state('hide', style({ transform: 'translateY(+10%)', opacity: 0 })),
+      transition('show => hide', [animate('0ms')]),
+      transition('hide => show', [animate('150ms')]),
+    ]),
+  ],
 })
 export class HeaderComponent {
   isHidden: boolean = false;
