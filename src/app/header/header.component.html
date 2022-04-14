@@ -1,26 +1,29 @@
-<mat-toolbar color="primary">
-  <span><a routerLink="/"> Demostore</a></span>
-  <span>
-    <mat-chip-list aria-label="links">
-      <mat-chip>
-        <a routerLink="/search">Search</a>
-      </mat-chip>
-    </mat-chip-list>
-  </span>
-  <span>
+<mat-toolbar [color]="currentColor" [class.mat-elevation-z8]="true">
+  <div *ngIf="!isHidden" class="countryAndTitle">
+    <app-country-selector> </app-country-selector>
+    <a routerLink="/">Demostore</a>
+  </div>
+
+  <div [@fade]="isHidden ? 'show' : 'hide'" class="seachbarfield">
     <mat-form-field appearance="fill">
-      <mat-label>Seach</mat-label>
       <input
         matInput
         type="seach"
         [(ngModel)]="searchDetails"
         name="search"
         placeholder="Search"
-        aria-label="Search"
         (keyup.enter)="onSearch()"
       />
     </mat-form-field>
-    <button mat-stroked-button (click)="onSearch()">Seach</button>
-  </span>
-  <app-country-selector></app-country-selector>
+  </div>
+  <button mat-icon-button>
+    <mat-icon
+      aria-hidden="false"
+      aria-label="Example home icon"
+      (click)="toggleSearch()"
+      [color]="isHidden ? mainColor : offColor"
+    >
+      search
+    </mat-icon>
+  </button>
 </mat-toolbar>
