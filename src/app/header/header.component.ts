@@ -27,7 +27,7 @@ import { FilterService } from '../services/filter.services';
 export class HeaderComponent {
 
   constructor(private router: Router,
-    private queryData: QueryService,
+    private queryService: QueryService,
     private filterService: FilterService) { }
 
   isHidden: boolean = false;
@@ -47,7 +47,7 @@ export class HeaderComponent {
 
   onSearch(): void {
     this.router.navigate(["search", this._searchDetails]);
-    this.queryData.setQueryData(this._searchDetails);
+    this.queryService.setQueryData(this._searchDetails);
     this.filterService.resetCategoryData();
     this.filterService.resetStatusData();
     this.filterService.resetReleaseDateData();

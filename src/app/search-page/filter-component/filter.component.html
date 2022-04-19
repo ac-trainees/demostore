@@ -1,30 +1,27 @@
-<div *ngIf="this.query">
-  <mat-grid-list id="container-select" cols="1" rowHeight="60px">
+<mat-grid-list id="container-select" cols="1" rowHeight="60px">
 
-    <mat-grid-tile>
-      <mat-form-field appearance="fill">
-        <mat-label>Categories</mat-label>
-        <mat-select [formControl]="categories" [(value)]="selectedCategory">
-          <mat-select-trigger>
-            {{categories.value ? selectedCategory : ''}}
-          </mat-select-trigger>
-          <mat-option *ngFor="let categories of categoryList" [value]="categories">{{categories}}</mat-option>
-        </mat-select>
-      </mat-form-field>
+  <mat-grid-tile>
+    <mat-form-field appearance="fill">
+      <mat-label>Categories</mat-label>
+      <mat-select [formControl]="categories" [(value)]="selectedCategory">
+        <mat-select-trigger>
+          {{categories.value ? selectedCategory : ''}}
+        </mat-select-trigger>
+        <mat-option *ngFor="let categories of categoryList" [value]="categories">{{categories}}</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-      <mat-form-field appearance="fill" id="box-relDate">
-        <mat-label>Status</mat-label>
-        <mat-select [formControl]="status" [(value)]="selectedStatus">
-          <mat-select-trigger>
-            {{status.value ? selectedStatus : ''}}
-          </mat-select-trigger>
-          <mat-option *ngFor="let status of statusList"
-                      [value]="status">
-            {{status}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </mat-grid-tile>
+    <mat-form-field appearance="fill" id="box-relDate">
+      <mat-label>Status</mat-label>
+      <mat-select [formControl]="status" [(value)]="selectedStatus">
+        <mat-select-trigger>
+          {{status.value ? selectedStatus : ''}}
+        </mat-select-trigger>
+        <mat-option *ngFor="let status of statusList" [value]="status">
+          {{status}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-grid-tile>
 
-  </mat-grid-list>
-</div>
+</mat-grid-list>

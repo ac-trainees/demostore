@@ -13,7 +13,6 @@ export class FilterComponent implements OnDestroy, OnInit {
 
   @Input() categoryList: string[] = [];
   @Input() statusList: string[] = [];
-  @Input() query: string | null = '';
 
   private readonly destroy$ = new Subject<void>();
 
