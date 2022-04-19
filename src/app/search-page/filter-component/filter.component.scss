@@ -6,6 +6,12 @@ $box-shadow: 0 0 1.25rem #0000001a;
   background-color: $mat-select-bg;
   box-shadow: $box-shadow;
 }
+.sticky {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 64px;
+  z-index: 1000;
+}
 mat-form-field::ng-deep.mat-form-field-flex {
   background-color: $mat-select-bg;
 }

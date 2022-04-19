@@ -38,3 +38,10 @@ a {
 .hidden {
   display: none;
 }
+
+.sticky {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  z-index: 1000;
+}
