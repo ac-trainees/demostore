@@ -1,0 +1,52 @@
+<mat-tab-group mat-align-tabs="center">
+  <mat-tab label="Description">
+    <br />
+    <div class="description" *ngIf="oneProduct">
+      <div class="imgDiv">
+        <img
+          [src]="oneProduct.icon"
+          class="img-fluid rounded-start"
+          alt="icon"
+        />
+      </div>
+      <div class="descText">
+        <h3>Description:</h3>
+        <p class="card-text">{{ oneProduct.teaser }}</p>
+      </div>
+    </div>
+  </mat-tab>
+  <mat-tab label="Details">
+    <div class="details" *ngIf="oneProduct">
+      <div class="detailsSub">
+        <h3>Details:</h3>
+        <p class="card-text">{{ oneProduct.description }}</p>
+      </div>
+      <div class="detailsSub">
+        <h3>Website:</h3>
+        <p class="card-text">{{ oneProduct.url }}</p>
+      </div>
+    </div>
+  </mat-tab>
+  <mat-tab label="Company Details">
+    <div class="companyDetails" *ngIf="oneProduct">
+      <div>
+        <h3>Adress:</h3>
+        <p class="card-text">{{ oneProduct.providedBy.companyName }}</p>
+        <p class="card-text">{{ oneProduct.providedBy.address.street }}</p>
+        <p class="card-text">{{ oneProduct.providedBy.address.city }}</p>
+        <p class="card-text">{{ oneProduct.providedBy.address.zipCode }}</p>
+        <p class="card-text">{{ oneProduct.providedBy.address.county }}</p>
+        <p class="card-text">{{ oneProduct.providedBy.address.country }}</p>
+      </div>
+    </div>
+  </mat-tab>
+</mat-tab-group>
+<br />
+
+<div class="buttonsArea" *ngIf="oneProduct">
+  <div *ngFor="let action of oneProduct.callToAction">
+    <button mat-raised-button color="primary" (click)="openConfig(action)">
+      {{ getButtonText(action) }}
+    </button>
+  </div>
+</div>

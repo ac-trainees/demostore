@@ -1,3 +1,4 @@
+import { OneProductService } from './../api/oneproduct.service';
 import {
   animate,
   state,
@@ -5,8 +6,11 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { Component } from '@angular/core';
+
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { IOneSingleProduct } from '../Interface/singleproduct';
+import { ReplaySubject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -14,19 +18,33 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.scss'],
   animations: [
     trigger('fade', [
-      state('show', style({ transform: 'translateY(0%)', opacity: 1 })),
-      state('hide', style({ transform: 'translateY(+10%)', opacity: 0 })),
+      state('show', style({ transform: 'translateY(0%)' })),
+      state(
+        'hide',
+        style({
+          transform: 'translateY(+10%)',
+          visibility: 'hidden',
+        })
+      ),
       transition('show => hide', [animate('0ms')]),
       transition('hide => show', [animate('150ms')]),
     ]),
   ],
 })
-export class HeaderComponent {
+
+export class HeaderComponent implements OnInit, OnDestroy {
   isHidden: boolean = false;
   currentColor: string = 'primary';
   mainColor: string = 'primary';
   offColor: string = 'white';
-  constructor(private router: Router) {}
+  currentLocalItem: IOneSingleProduct | undefined = undefined;
+
+  destroy$ = new ReplaySubject<void>(1);
+
+  constructor(
+    private router: Router,
+    private oneProductService: OneProductService
+  ) {}
 
   private _searchDetails: string = '';
 
@@ -44,8 +62,27 @@ export class HeaderComponent {
   }
 
   toggleSearch(): void {
-    this._searchDetails = '';
+    this.searchDetails = '';
     this.isHidden = !this.isHidden;
     this.currentColor = this.isHidden ? this.offColor : this.mainColor;
+  }
+
+  subToOneProduct(): void {
+    this.oneProductService.oneProduct$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((singleProduct) => {
+        singleProduct
+          ? (this.currentLocalItem = singleProduct)
+          : (this.currentLocalItem = undefined);
+      });
+  }
+
+  ngOnInit(): void {
+    this.subToOneProduct();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
