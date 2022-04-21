@@ -1,4 +1,4 @@
-import { OneProductService } from './../api/oneproduct.service';
+import { ProductService } from './../api/oneproduct.service';
 import {
   animate,
   state,
@@ -9,7 +9,7 @@ import {
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { IOneSingleProduct } from '../Interface/singleproduct';
+import { IDetailedProduct } from '../Interface/detailedproduct';
 import { ReplaySubject, takeUntil } from 'rxjs';
 
 @Component({
@@ -31,20 +31,16 @@ import { ReplaySubject, takeUntil } from 'rxjs';
     ]),
   ],
 })
-
 export class HeaderComponent implements OnInit, OnDestroy {
   isHidden: boolean = false;
   currentColor: string = 'primary';
   mainColor: string = 'primary';
   offColor: string = 'white';
-  currentLocalItem: IOneSingleProduct | undefined = undefined;
+  currentLocalItem: IDetailedProduct | undefined = undefined;
 
   destroy$ = new ReplaySubject<void>(1);
 
-  constructor(
-    private router: Router,
-    private oneProductService: OneProductService
-  ) {}
+  constructor(private router: Router, private ProductService: ProductService) {}
 
   private _searchDetails: string = '';
 
@@ -68,7 +64,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   subToOneProduct(): void {
-    this.oneProductService.oneProduct$
+    this.ProductService.oneProduct$
       .pipe(takeUntil(this.destroy$))
       .subscribe((singleProduct) => {
         singleProduct

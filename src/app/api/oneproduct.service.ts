@@ -1,39 +1,38 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, catchError, throwError } from 'rxjs';
-import { IOneSingleProduct } from '../Interface/singleproduct';
+import { IDetailedProduct } from '../Interface/detailedproduct';
 import { CountryService } from '../services/country.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class OneProductService {
-  oneProduct!: IOneSingleProduct | undefined;
+export class ProductService {
+  oneProduct!: IDetailedProduct | undefined;
 
-  private oneProductUrl =
-    'https://ac-trainee-store-api.herokuapp.com/products/';
+  private productUrl = 'https://ac-trainee-store-api.herokuapp.com/products/';
 
-  private oneProductSubject: BehaviorSubject<IOneSingleProduct | undefined> =
+  private productSubject: BehaviorSubject<IDetailedProduct | undefined> =
     new BehaviorSubject(this.oneProduct);
 
-  oneProduct$: Observable<IOneSingleProduct | undefined> =
-    this.oneProductSubject.asObservable();
+  oneProduct$: Observable<IDetailedProduct | undefined> =
+    this.productSubject.asObservable();
 
-  setOneProductSubject(newValue: IOneSingleProduct | undefined) {
-    this.oneProductSubject.next(newValue);
+  setproductSubject(newValue: IDetailedProduct | undefined) {
+    this.productSubject.next(newValue);
   }
 
   constructor(private http: HttpClient, private country: CountryService) {}
 
-  getSingleProductDetails(
+  getProductDetails(
     productId: string
-  ): Observable<IOneSingleProduct | undefined> {
+  ): Observable<IDetailedProduct | undefined> {
     this.http
-      .get<IOneSingleProduct>(this.oneProductUrl + productId, {
+      .get<IDetailedProduct>(this.productUrl + productId, {
         headers: this.country.getHttpHeaders(),
       })
       .pipe(catchError(this.handleError))
-      .subscribe((data) => this.setOneProductSubject(data));
+      .subscribe((data) => this.setproductSubject(data));
     return this.oneProduct$;
   }
 

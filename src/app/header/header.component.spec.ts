@@ -13,7 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
-import { OneProductService } from '../api/oneproduct.service';
+import { ProductService } from '../api/oneproduct.service';
 import { of } from 'rxjs';
 
 describe('HeaderComponent', () => {
@@ -22,7 +22,7 @@ describe('HeaderComponent', () => {
   let router = {
     navigate: jest.fn(),
   };
-  let oneProductService = {
+  let ProductService = {
     oneProduct$: of({}),
   };
 
@@ -40,7 +40,7 @@ describe('HeaderComponent', () => {
       ],
       providers: [
         { provide: Router, useValue: router },
-        { provide: OneProductService, useValue: oneProductService },
+        { provide: ProductService, useValue: ProductService },
       ],
     }).compileComponents();
   });
@@ -88,7 +88,7 @@ describe('HeaderComponent', () => {
   });
 
   it('should sub to one Product', () => {
-    oneProductService.oneProduct$ = of(undefined as any);
+    ProductService.oneProduct$ = of(undefined as any);
     component.subToOneProduct();
     expect(component.currentLocalItem).toEqual(undefined);
   });

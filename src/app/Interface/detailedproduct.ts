@@ -1,11 +1,9 @@
-export interface IOneSingleProduct {
-  id: number;
-  title: string;
-  teaser: string;
+import { IProduct } from './products';
+
+export interface IDetailedProduct extends IProduct {
   description: string;
   url: string;
   category: string;
-  icon: string;
   image: string;
   providedBy: {
     companyName: string;

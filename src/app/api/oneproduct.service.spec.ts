@@ -8,7 +8,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { AppComponent } from '../app.component';
 import { CountryService } from '../services/country.service';
-import { OneProductService } from './oneproduct.service';
+import { ProductService } from './oneproduct.service';
 
 const mockedHttpClient: any = {
   get: jest.fn().mockReturnValue(of({})),
@@ -18,8 +18,8 @@ const mockedCountryService: any = {
   getHttpHeaders: jest.fn(),
 };
 
-describe('OneProductService', () => {
-  let service: OneProductService;
+describe('ProductService', () => {
+  let service: ProductService;
   console.error = jest.fn();
 
   beforeEach(() => {
@@ -31,7 +31,7 @@ describe('OneProductService', () => {
         { provide: CountryService, useValue: mockedCountryService },
       ],
     });
-    service = TestBed.inject(OneProductService);
+    service = TestBed.inject(ProductService);
   });
 
   it('should be created', () => {
@@ -39,7 +39,7 @@ describe('OneProductService', () => {
   });
 
   it('should return empty Object', (done) => {
-    service.getSingleProductDetails('sad');
+    service.getProductDetails('sad');
 
     service.oneProduct$.subscribe((data) => {
       expect(data).toEqual({});

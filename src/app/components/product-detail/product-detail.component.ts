@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ReplaySubject, takeUntil } from 'rxjs';
-import { OneProductService } from '../../api/oneproduct.service';
-import { IOneSingleProduct } from '../../Interface/singleproduct';
+import { ProductService } from '../../api/oneproduct.service';
+import { IDetailedProduct } from '../../Interface/detailedproduct';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,14 +11,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./product-detail.component.scss'],
 })
 export class ProductDetailComponent implements OnInit, OnDestroy {
-  oneProduct!: IOneSingleProduct | undefined;
+  oneProduct!: IDetailedProduct | undefined;
 
   destroy$ = new ReplaySubject<void>(1);
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    public oneProductService: OneProductService
+    public ProductService: ProductService
   ) {}
 
   openConfig(param: string): void {
@@ -42,9 +42,10 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnInit(): void {
-    this.oneProductService
-      .getSingleProductDetails(this.route.snapshot.paramMap.get('id') || '')
+  getProductDetailsById(): void {
+    this.ProductService.getProductDetails(
+      this.route.snapshot.paramMap.get('id') || ''
+    )
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (data) => {
@@ -53,8 +54,12 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
       });
   }
 
+  ngOnInit(): void {
+    this.getProductDetailsById();
+  }
+
   ngOnDestroy(): void {
-    this.oneProductService.setOneProductSubject(undefined);
+    this.ProductService.setproductSubject(undefined);
     this.destroy$.next();
     this.destroy$.complete();
   }
