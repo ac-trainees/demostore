@@ -3,3 +3,11 @@
 html, body { height: fit-content; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+.sticky {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+
