@@ -18,7 +18,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    public ProductService: ProductService
+    public productService: ProductService
   ) {}
 
   openConfig(param: string): void {
@@ -43,9 +43,8 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   }
 
   getProductDetailsById(): void {
-    this.ProductService.getProductDetails(
-      this.route.snapshot.paramMap.get('id') || ''
-    )
+    this.productService
+      .getProductDetails(this.route.snapshot.paramMap.get('id') || '')
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (data) => {
@@ -59,7 +58,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.ProductService.setproductSubject(undefined);
+    this.productService.setProductSubject(undefined);
     this.destroy$.next();
     this.destroy$.complete();
   }

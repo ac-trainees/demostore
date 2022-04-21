@@ -45,7 +45,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private ProductService: ProductService,
+    private productService: ProductService,
     private queryService: QueryService,
     private filterService: FilterService
   ) {}
@@ -77,7 +77,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   subToproduct(): void {
-    this.ProductService.product$
+    this.productService.product$
       .pipe(takeUntil(this.destroy$))
       .subscribe((singleProduct) => {
         singleProduct

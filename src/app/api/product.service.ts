@@ -18,7 +18,7 @@ export class ProductService {
   product$: Observable<IDetailedProduct | undefined> =
     this.productSubject.asObservable();
 
-  setproductSubject(newValue: IDetailedProduct | undefined) {
+  setProductSubject(newValue: IDetailedProduct | undefined) {
     this.productSubject.next(newValue);
   }
 
@@ -32,7 +32,7 @@ export class ProductService {
         headers: this.country.getHttpHeaders(),
       })
       .pipe(catchError(this.handleError))
-      .subscribe((data) => this.setproductSubject(data));
+      .subscribe((data) => this.setProductSubject(data));
     return this.product$;
   }
 
