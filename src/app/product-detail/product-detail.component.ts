@@ -29,6 +29,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
       private router: Router) {
 
         route.queryParams
+        .pipe(takeUntil(this.destroy$))
         .subscribe(params => {
           if (params['configurator']) {
             this.openDialog();

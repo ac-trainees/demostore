@@ -85,7 +85,7 @@ import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
       { path: 'search', component: SearchComponent },
       { path: 'search/:query', component: SearchComponent },
       { path: 'product/:id', component: ProductDetailComponent },
-      { path: 'product/configurator/:id', component: ConfiguratorComponent },
+      { path: 'configurator/:id', component: ConfiguratorComponent },
     ]),
   ],
   providers: [],
