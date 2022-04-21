@@ -1,8 +1,8 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {Subscription} from 'rxjs';
-import {ProductService} from '../api/products.service';
-import {IProduct} from '../Interface/products';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { ProductService } from '../api/products.service';
+import { IProduct } from '../Interface/products';
 
 @Component({
   selector: 'app-product-detail',
@@ -20,8 +20,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   selectedProduct: IProduct | undefined;
 
   constructor(private route: ActivatedRoute,
-              public productService: ProductService) {
-  }
+    public productService: ProductService) { }
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get("id"));

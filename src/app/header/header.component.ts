@@ -7,6 +7,8 @@ import {
 } from '@angular/animations';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { QueryService } from '../api/query.service';
+import { FilterService } from '../services/filter.services';
 
 @Component({
   selector: 'app-header',
@@ -21,12 +23,17 @@ import { Router } from '@angular/router';
     ]),
   ],
 })
+
 export class HeaderComponent {
+
+  constructor(private router: Router,
+    private queryService: QueryService,
+    private filterService: FilterService) { }
+
   isHidden: boolean = false;
   currentColor: string = 'primary';
   mainColor: string = 'primary';
   offColor: string = 'white';
-  constructor(private router: Router) {}
 
   private _searchDetails: string = '';
 
@@ -39,6 +46,11 @@ export class HeaderComponent {
   }
 
   onSearch(): void {
+    this.router.navigate(["search", this._searchDetails]);
+    this.queryService.setQueryData(this._searchDetails);
+    this.filterService.resetCategoryData();
+    this.filterService.resetStatusData();
+    this.filterService.resetReleaseDateData();
     this.router.navigate(['search', this._searchDetails]);
     this.toggleSearch();
   }
