@@ -29,6 +29,13 @@ import { SortComponent } from './search-page/sort-component/sort.component';
 import { CardComponent } from 'src/shared/card-component/card.component';
 import { SearchResultComponent } from './search-page/search-result.component/search-result.component';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from "@angular/material/dialog";
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { FormlyModule } from '@ngx-formly/core';
+import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
+
 
 @NgModule({
   declarations: [
@@ -66,15 +73,23 @@ import { MatIconModule } from '@angular/material/icon';
     MatGridListModule,
     FlexLayoutModule,
     MatIconModule,
+    MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCheckboxModule,
+    ReactiveFormsModule,
+    FormlyBootstrapModule,
+    FormlyModule,
     RouterModule.forRoot([
       { path: '', component: LandingPageComponent },
       { path: 'search', component: SearchComponent },
       { path: 'search/:query', component: SearchComponent },
       { path: 'product/:id', component: ProductDetailComponent },
-      { path: 'configurator/:id', component: ConfiguratorComponent },
+      { path: 'product/configurator/:id', component: ConfiguratorComponent },
     ]),
   ],
   providers: [],
   bootstrap: [HeaderComponent, AppComponent],
+  entryComponents: [ConfiguratorComponent, ProductDetailComponent]
 })
 export class AppModule {}

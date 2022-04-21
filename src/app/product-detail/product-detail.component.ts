@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 import { ProductService } from '../api/products.service';
+import { ConfiguratorComponent } from '../configurator/configurator.component';
 import { IProduct } from '../Interface/products';
 
 @Component({
@@ -11,22 +13,52 @@ import { IProduct } from '../Interface/products';
 })
 export class ProductDetailComponent implements OnInit, OnDestroy {
 
+  configurator: string = 'monthly';
+
   productId: number = 0;
 
   products: IProduct[] = [];
 
-  sub!: Subscription;
+  private readonly destroy$ = new Subject<void>();
 
   selectedProduct: IProduct | undefined;
 
-  constructor(private route: ActivatedRoute,
-    public productService: ProductService) { }
+    constructor( public dialog: MatDialog,
+      public productService: ProductService,
+      private route: ActivatedRoute,
+      private router: Router) {
+
+        route.queryParams
+        .subscribe(params => {
+          if (params['configurator']) {
+            this.openDialog();
+          }
+        });
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(ConfiguratorComponent, {
+      width: '70%',
+      data: {
+        id: this.productId,
+        product: this.selectedProduct,
+        config: this.configurator
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.router.navigateByUrl(`product/${this.productId}`);
+    });
+  }
+
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get("id"));
     this.productId = id;
 
-    this.sub = this.productService.productData$.subscribe(
+    this.productService.productData$
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(
       data => {
         if (data.length === 0) {
           this.productService.getProducts().subscribe({
@@ -44,6 +76,11 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.sub.unsubscribe();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
+}
+
+const findProductById = (array: IProduct[], id: number) => {
+  return array.find(el => el.id === id)
 }

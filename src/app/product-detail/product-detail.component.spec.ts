@@ -3,6 +3,7 @@ import { ProductDetailComponent } from './product-detail.component';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { MatDialogModule } from '@angular/material/dialog';
 
 const mockedActivatedRoute: any = {
   snapshot: { paramMap: { get: jest.fn() } },
@@ -14,7 +15,11 @@ describe('ProductDetailComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule],
+      imports: [
+        HttpClientTestingModule,
+        RouterTestingModule,
+        MatDialogModule,
+      ],
       declarations: [ProductDetailComponent],
       providers: [{ provide: ActivatedRoute, useValue: mockedActivatedRoute }],
     }).compileComponents();

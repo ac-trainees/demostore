@@ -1,1 +1,72 @@
-<h1>Configurator works!</h1>
+<div class="dialog-window">
+
+  <h1 mat-dialog-title>{{configurator}} - Product ID: {{productId}}</h1>
+
+  <form [formGroup]="configuratorForm" (ngSubmit)="submit()">
+    <formly-form [form]="configuratorForm">
+
+      <mat-dialog-content class="mat-typography">
+        <div class="wrapper">
+
+          <div class="col-1">
+
+            <div>
+              <h3>Choose a start date: </h3>
+            <mat-form-field appearance="fill">
+              <mat-label>Choose a date</mat-label>
+              <input formControlName="date" matInput [min]="minDate" matInput [matDatepicker]="datepicker">
+              <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+              <mat-datepicker #datepicker>
+                <mat-datepicker-actions>
+                  <button mat-button color="warn" matDatepickerCancel>Cancel</button>
+                  <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+                </mat-datepicker-actions>
+              </mat-datepicker>
+            </mat-form-field>
+          </div>
+
+            <div>
+              <h3>Choose a duration: </h3>
+              <mat-form-field class="example-user-input" appearance="fill">
+                <mat-label>Select a duration</mat-label>
+                <input formControlName="duration" matInput type="number" min="1" max="12">
+                <mat-hint>months</mat-hint>
+              </mat-form-field>
+            </div>
+
+
+            <div class="wrapper-support" *ngIf="configurator !== 'free' && configurator !== 'trial'">
+              <h3 class="txt-support">Do you need a support: </h3>
+              <mat-checkbox formControlName="support" class="example-margin">
+                Support
+              </mat-checkbox>
+            </div>
+
+          </div>
+
+          <div class="col-2">
+            <div class="vertical-line"></div>
+          </div>
+
+          <div class="col-3">
+            <div>Price</div>
+          </div>
+
+
+
+
+
+        </div>
+      </mat-dialog-content>
+
+      <mat-dialog-actions fxLayout="row" fxLayoutAlign="space-around center">
+
+        <button mat-flat-button color="warn" mat-dialog-close>Cancel</button>
+        <button type="submit" mat-flat-button color="primary" [mat-dialog-close]="true" cdkFocusInitial submit-button>
+          Buy now
+        </button>
+
+      </mat-dialog-actions>
+    </formly-form>
+  </form>
+</div>

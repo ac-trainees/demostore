@@ -11,12 +11,7 @@
       <div class="card-body">
         <h5 class="card-title">{{ selectedProduct.title }}</h5>
         <p class="card-text">{{ selectedProduct.teaser }}</p>
-        <a
-          href="#"
-          class="btn btn-primary"
-          [routerLink]="['/configurator', selectedProduct.id]"
-          >Configurate</a
-        >
+        <button mat-raised-button [routerLink]="['/product', selectedProduct.id]" [queryParams]="{configurator: true}">Pick one</button>
       </div>
     </div>
   </div>

@@ -1,0 +1,46 @@
+.margin-top {
+  margin-top: 100px;
+}
+.vertical-line {
+  width: 1px;
+  background-color: rgb(186, 186, 186);
+  height: 100%;
+  margin: 0 auto;
+}
+.mat-dialog-actions {
+  margin-bottom: 0;
+}
+/* ::ng-deep .mat-grid-tile-content {
+    justify-content: flex-start !important;
+} */
+.leftt {
+  justify-content: flex-start !important;
+}
+.wrapper {
+  display: flex;
+  height: 350px;
+}
+.col-1 {
+  width: calc(100% / 2);
+}
+.col-1 {
+  div {
+    margin: 10px 0;
+  }
+}
+.col-2 {
+  width: calc(100% / 6);
+}
+.col-3 {
+  width: calc(100% / 2);
+}
+.wrapper-support {
+  display: flex;
+  justify-content: space-between;
+}
+.wrapper-support {
+  h3, .mat-checkbox {
+    margin-top: 30px;
+  }
+}
+

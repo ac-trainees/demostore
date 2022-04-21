@@ -1,5 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ConfiguratorService } from '../api/configurator.service';
+import { IProduct } from '../Interface/products';
+import {FormBuilder, FormControl, Validators} from '@angular/forms';
+import { FormGroup } from '@angular/forms';
+
 
 
 @Component({
@@ -7,14 +12,60 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './configurator.component.html',
   styleUrls: ['./configurator.component.scss']
 })
+
 export class ConfiguratorComponent implements OnInit {
+
+  configurator: string | undefined;
+
+  configuratorForm = new FormGroup({
+    date: new FormControl(),
+    duration: new FormControl(),
+    support: new FormControl()
+  });
 
   productId: number | undefined;
 
-  constructor(private route: ActivatedRoute) { }
+  selectedProduct!: IProduct;
 
-  ngOnInit(): void {
-    const id = Number(this.route.snapshot.paramMap.get("id"));
-    this.productId = id;
+  minDate: Date = new Date();
+
+  constructor(private configuratorService: ConfiguratorService,
+              private dialogRef: MatDialogRef<ConfiguratorComponent>,
+              @Inject(MAT_DIALOG_DATA) data: any,
+              private formBuilder: FormBuilder) {
+
+      this.productId = data.id;
+      this.selectedProduct = data.product;
+      this.configurator = data.config;
+  }
+
+  onCancelClick(): void {
+    this.dialogRef.close();
+  }
+
+  submit() {
+    const exampleData = {
+      cta: "example-cta",
+      country: 'example-country',
+      productId: this.productId
+    }
+
+    if (this.configuratorForm.valid) {
+      this.configuratorService.addToCart({...this.configuratorForm.value, productId: this.productId, cta: exampleData.cta, country: exampleData.country})
+        .subscribe(data => {
+        console.log(data)
+        })
+    } else {
+      console.log('Unvalid form')
+    }
+  }
+
+  ngOnInit() {
+    this.configuratorForm = this.formBuilder.group({
+      date: ['', Validators.required],
+      duration: ['', Validators.required],
+      support: []
+    })
   }
 }
+
