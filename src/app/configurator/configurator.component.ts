@@ -2,9 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ConfiguratorService } from '../api/configurator.service';
 import { IProduct } from '../Interface/products';
-import {FormBuilder, FormControl, Validators} from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
-
 
 
 @Component({
@@ -29,10 +28,11 @@ export class ConfiguratorComponent implements OnInit {
 
   minDate: Date = new Date();
 
-  constructor(private configuratorService: ConfiguratorService,
-              private dialogRef: MatDialogRef<ConfiguratorComponent>,
-              @Inject(MAT_DIALOG_DATA) data: any,
-              private formBuilder: FormBuilder) {
+  constructor(
+    private configuratorService: ConfiguratorService,
+    private dialogRef: MatDialogRef<ConfiguratorComponent>,
+    @Inject(MAT_DIALOG_DATA) data: any,
+    private formBuilder: FormBuilder) {
 
       this.productId = data.id;
       this.selectedProduct = data.product;
@@ -44,28 +44,26 @@ export class ConfiguratorComponent implements OnInit {
   }
 
   submit() {
-    const exampleData = {
-      cta: "example-cta",
-      country: 'example-country',
-      productId: this.productId
-    }
-
     if (this.configuratorForm.valid) {
-      this.configuratorService.addToCart({...this.configuratorForm.value, productId: this.productId, cta: exampleData.cta, country: exampleData.country})
+      this.configuratorService.addToCart({...this.configuratorForm.value, productId: this.productId, cta: this.configurator, country: 'example-country'})
         .subscribe(data => {
         console.log(data)
         })
     } else {
-      console.log('Unvalid form')
+      console.log('Please fill out all required fields')
     }
   }
 
-  ngOnInit() {
+  formValidation() {
     this.configuratorForm = this.formBuilder.group({
       date: ['', Validators.required],
       duration: ['', Validators.required],
       support: []
     })
+  }
+
+  ngOnInit() {
+    this.formValidation();
   }
 }
 

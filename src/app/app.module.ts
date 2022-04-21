@@ -9,7 +9,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { SearchComponent } from './search-page/search.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
-import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import { HeaderComponent } from './header/header.component';
 import { ConfiguratorComponent } from './configurator/configurator.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -35,7 +35,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
-
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -80,12 +80,19 @@ import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
     ReactiveFormsModule,
     FormlyBootstrapModule,
     FormlyModule,
+    MatTabsModule,
     RouterModule.forRoot([
       { path: '', component: LandingPageComponent },
       { path: 'search', component: SearchComponent },
       { path: 'search/:query', component: SearchComponent },
-      { path: 'product/:id', component: ProductDetailComponent },
-      { path: 'configurator/:id', component: ConfiguratorComponent },
+      { path: 'product/:id', component: ProductDetailComponent,
+        children: [
+          {
+            path: 'configurator/:param',
+            component: ConfiguratorComponent
+          }
+        ]
+      },
     ]),
   ],
   providers: [],
