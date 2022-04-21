@@ -2,6 +2,10 @@
   <div *ngIf="!isHidden" class="countryAndTitle">
     <app-country-selector> </app-country-selector>
     <a routerLink="/">Demostore</a>
+
+    <div *ngIf="currentLocalItem">
+      <h1> - {{ currentLocalItem.title }}</h1>
+    </div>
   </div>
 
   <div [@fade]="isHidden ? 'show' : 'hide'" class="seachbarfield">

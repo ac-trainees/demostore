@@ -9,7 +9,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { SearchComponent } from './search-page/search.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
-import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import { HeaderComponent } from './header/header.component';
 import { ConfiguratorComponent } from './configurator/configurator.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -29,6 +29,7 @@ import { SortComponent } from './search-page/sort-component/sort.component';
 import { CardComponent } from 'src/shared/card-component/card.component';
 import { SearchResultComponent } from './search-page/search-result.component/search-result.component';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatGridListModule,
     FlexLayoutModule,
     MatIconModule,
+    MatTabsModule,
     RouterModule.forRoot([
       { path: '', component: LandingPageComponent },
       { path: 'search', component: SearchComponent },
