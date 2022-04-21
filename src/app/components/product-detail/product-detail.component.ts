@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ReplaySubject, takeUntil } from 'rxjs';
-import { ProductService } from '../../api/oneproduct.service';
+import { ProductService } from '../../api/product.service';
 import { IDetailedProduct } from '../../Interface/detailedproduct';
 import { Router } from '@angular/router';
 
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./product-detail.component.scss'],
 })
 export class ProductDetailComponent implements OnInit, OnDestroy {
-  oneProduct!: IDetailedProduct | undefined;
+  product!: IDetailedProduct | undefined;
 
   destroy$ = new ReplaySubject<void>(1);
 
@@ -49,7 +49,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (data) => {
-          this.oneProduct = data;
+          this.product = data;
         },
       });
   }

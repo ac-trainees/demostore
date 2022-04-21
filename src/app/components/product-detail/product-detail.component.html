@@ -1,50 +1,46 @@
 <mat-tab-group mat-align-tabs="center">
   <mat-tab label="Description">
     <br />
-    <div class="description" *ngIf="oneProduct">
+    <div class="description" *ngIf="product">
       <div class="imgDiv">
-        <img
-          [src]="oneProduct.icon"
-          class="img-fluid rounded-start"
-          alt="icon"
-        />
+        <img [src]="product.icon" class="img-fluid rounded-start" alt="icon" />
       </div>
       <div class="descText">
         <h3>Description:</h3>
-        <p class="card-text">{{ oneProduct.teaser }}</p>
+        <p class="card-text">{{ product.teaser }}</p>
       </div>
     </div>
   </mat-tab>
   <mat-tab label="Details">
-    <div class="details" *ngIf="oneProduct">
+    <div class="details" *ngIf="product">
       <div class="detailsSub">
         <h3>Details:</h3>
-        <p class="card-text">{{ oneProduct.description }}</p>
+        <p class="card-text">{{ product.description }}</p>
       </div>
       <div class="detailsSub">
         <h3>Website:</h3>
-        <p class="card-text">{{ oneProduct.url }}</p>
+        <p class="card-text">{{ product.url }}</p>
       </div>
     </div>
   </mat-tab>
   <mat-tab label="Company Details">
-    <div class="companyDetails" *ngIf="oneProduct">
+    <div class="companyDetails" *ngIf="product">
       <div>
         <h3>Adress:</h3>
-        <p class="card-text">{{ oneProduct.providedBy.companyName }}</p>
-        <p class="card-text">{{ oneProduct.providedBy.address.street }}</p>
-        <p class="card-text">{{ oneProduct.providedBy.address.city }}</p>
-        <p class="card-text">{{ oneProduct.providedBy.address.zipCode }}</p>
-        <p class="card-text">{{ oneProduct.providedBy.address.county }}</p>
-        <p class="card-text">{{ oneProduct.providedBy.address.country }}</p>
+        <p class="card-text">{{ product.providedBy.companyName }}</p>
+        <p class="card-text">{{ product.providedBy.address.street }}</p>
+        <p class="card-text">{{ product.providedBy.address.city }}</p>
+        <p class="card-text">{{ product.providedBy.address.zipCode }}</p>
+        <p class="card-text">{{ product.providedBy.address.county }}</p>
+        <p class="card-text">{{ product.providedBy.address.country }}</p>
       </div>
     </div>
   </mat-tab>
 </mat-tab-group>
 <br />
 
-<div class="buttonsArea" *ngIf="oneProduct">
-  <div *ngFor="let action of oneProduct.callToAction">
+<div class="buttonsArea" *ngIf="product">
+  <div *ngFor="let action of product.callToAction">
     <button mat-raised-button color="primary" (click)="openConfig(action)">
       {{ getButtonText(action) }}
     </button>

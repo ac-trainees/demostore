@@ -8,14 +8,14 @@ import { CountryService } from '../services/country.service';
   providedIn: 'root',
 })
 export class ProductService {
-  oneProduct!: IDetailedProduct | undefined;
+  product!: IDetailedProduct | undefined;
 
   private productUrl = 'https://ac-trainee-store-api.herokuapp.com/products/';
 
   private productSubject: BehaviorSubject<IDetailedProduct | undefined> =
-    new BehaviorSubject(this.oneProduct);
+    new BehaviorSubject(this.product);
 
-  oneProduct$: Observable<IDetailedProduct | undefined> =
+  product$: Observable<IDetailedProduct | undefined> =
     this.productSubject.asObservable();
 
   setproductSubject(newValue: IDetailedProduct | undefined) {
@@ -33,7 +33,7 @@ export class ProductService {
       })
       .pipe(catchError(this.handleError))
       .subscribe((data) => this.setproductSubject(data));
-    return this.oneProduct$;
+    return this.product$;
   }
 
   private handleError(err: HttpErrorResponse): Observable<never> {

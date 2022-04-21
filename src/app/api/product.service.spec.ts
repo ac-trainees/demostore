@@ -8,7 +8,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { AppComponent } from '../app.component';
 import { CountryService } from '../services/country.service';
-import { ProductService } from './oneproduct.service';
+import { ProductService } from './product.service';
 
 const mockedHttpClient: any = {
   get: jest.fn().mockReturnValue(of({})),
@@ -41,7 +41,7 @@ describe('ProductService', () => {
   it('should return empty Object', (done) => {
     service.getProductDetails('sad');
 
-    service.oneProduct$.subscribe((data) => {
+    service.product$.subscribe((data) => {
       expect(data).toEqual({});
       done();
     });

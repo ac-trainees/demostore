@@ -1,4 +1,4 @@
-import { ProductService } from './../api/oneproduct.service';
+import { ProductService } from '../api/product.service';
 import {
   animate,
   state,
@@ -63,8 +63,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.currentColor = this.isHidden ? this.offColor : this.mainColor;
   }
 
-  subToOneProduct(): void {
-    this.ProductService.oneProduct$
+  subToproduct(): void {
+    this.ProductService.product$
       .pipe(takeUntil(this.destroy$))
       .subscribe((singleProduct) => {
         singleProduct
@@ -74,7 +74,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subToOneProduct();
+    this.subToproduct();
   }
 
   ngOnDestroy(): void {

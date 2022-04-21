@@ -1,20 +1,16 @@
-import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HeaderComponent } from './header.component';
-import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule } from '@angular/forms';
 import { CountrySelectorComponent } from '../components/country-selector/country-selector.component';
-import { MockComponent, MockComponents } from 'ng-mocks';
-import { MatToolbar, MatToolbarModule } from '@angular/material/toolbar';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
+import { MockComponents } from 'ng-mocks';
+import { MatToolbar } from '@angular/material/toolbar';
+import { MatFormField } from '@angular/material/form-field';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { MatIcon } from '@angular/material/icon';
 import { Router } from '@angular/router';
-import { ProductService } from '../api/oneproduct.service';
 import { of } from 'rxjs';
+import { HttpClientModule } from '@angular/common/http';
+import { ProductService } from '../api/product.service';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -22,13 +18,13 @@ describe('HeaderComponent', () => {
   let router = {
     navigate: jest.fn(),
   };
-  let ProductService = {
-    oneProduct$: of({}),
+  let productService = {
+    product$: of({}),
   };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BrowserAnimationsModule, FormsModule],
+      imports: [HttpClientModule, BrowserAnimationsModule, FormsModule],
       declarations: [
         HeaderComponent,
         ...MockComponents(
@@ -40,7 +36,7 @@ describe('HeaderComponent', () => {
       ],
       providers: [
         { provide: Router, useValue: router },
-        { provide: ProductService, useValue: ProductService },
+        { provide: ProductService, useValue: productService },
       ],
     }).compileComponents();
   });
@@ -82,14 +78,15 @@ describe('HeaderComponent', () => {
     expect(component.searchDetails).toBe('asdad');
   });
 
-  it('should sub to one Product', () => {
-    component.subToOneProduct();
+  it('should sub to one Product if way  1', () => {
+    productService.product$ = of({});
+    component.subToproduct();
     expect(component.currentLocalItem).toEqual({});
   });
 
-  it('should sub to one Product', () => {
-    ProductService.oneProduct$ = of(undefined as any);
-    component.subToOneProduct();
+  it('should sub to one Product if way 2', () => {
+    productService.product$ = of(undefined as any);
+    component.subToproduct();
     expect(component.currentLocalItem).toEqual(undefined);
   });
 });
