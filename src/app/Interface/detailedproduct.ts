@@ -3,8 +3,6 @@ import { IProduct } from './products';
 export interface IDetailedProduct extends IProduct {
   description: string;
   url: string;
-  category: string;
-  image: string;
   providedBy: {
     companyName: string;
     address: {
@@ -20,8 +18,6 @@ export interface IDetailedProduct extends IProduct {
     };
     phone: string;
   };
-  releaseDate: string;
-  status: string;
   service: string;
   callToAction: string[];
 }

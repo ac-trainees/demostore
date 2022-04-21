@@ -1,0 +1,11 @@
+<mat-form-field appearance="fill">
+  <mat-label>Release date: </mat-label>
+  <mat-select [formControl]="releaseDate" [(value)]="selectedReleaseDate">
+    <mat-select-trigger>
+      {{releaseDate.value ? selectedReleaseDate : ''}}
+    </mat-select-trigger>
+    <mat-option *ngFor="let releaseDate of releaseDateList" [value]="releaseDate">
+      {{releaseDate}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

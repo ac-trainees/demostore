@@ -34,6 +34,14 @@ export class ProductService {
       );
   }
 
+  getProductsByQuery(queryParams: string): Observable<any> {
+
+    return this.http.get<any>(this.productUrl + '/search/' + queryParams)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
   private handleError(err: HttpErrorResponse): Observable<never> {
     let errorMessage = '';
     if (err.error instanceof ErrorEvent) {

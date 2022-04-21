@@ -1,0 +1,41 @@
+<div class="wrapper">
+  <div *ngIf="this.query">
+
+    <app-search-filter [categoryList]="categoryList" [statusList]="statusList">
+    </app-search-filter>
+
+    <div class="container">
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+
+        <div *ngIf="selectedCategory">
+          <h2>{{this.filteredProducts.length}} Results for "{{selectedCategory}}" category</h2>
+        </div>
+
+        <div *ngIf="selectedStatus">
+          <h2>{{this.filteredProducts.length}} Results for "{{selectedStatus}}" status</h2>
+        </div>
+
+        <div *ngIf="!selectedCategory && !selectedStatus">
+          <h2>{{this.searchCount}} Results for "{{this.query}}"</h2>
+        </div>
+
+        <app-search-sort></app-search-sort>
+
+      </div>
+
+      <app-search-result [visibleProducts]="visibleProducts"></app-search-result>
+
+      <div *ngIf="selectedCategory || selectedStatus">
+        <mat-paginator [length]="this.filteredProducts.length" [pageSize]="12" aria-label="Select page"
+          (page)="onPageChange($event, this.filteredProducts)">
+        </mat-paginator>
+      </div>
+
+      <div *ngIf="!selectedCategory && !selectedStatus">
+        <mat-paginator [length]="this.allProductsBySearch.length" [pageSize]="12" aria-label="Select page"
+          (page)="onPageChange($event, this.allProductsBySearch)">
+        </mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>

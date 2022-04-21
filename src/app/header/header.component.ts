@@ -11,6 +11,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { IDetailedProduct } from '../Interface/detailedproduct';
 import { ReplaySubject, takeUntil } from 'rxjs';
+import { QueryService } from '../api/query.service';
+import { FilterService } from '../services/filter.services';
 
 @Component({
   selector: 'app-header',
@@ -36,11 +38,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
   currentColor: string = 'primary';
   mainColor: string = 'primary';
   offColor: string = 'white';
+
   currentLocalItem: IDetailedProduct | undefined = undefined;
 
   destroy$ = new ReplaySubject<void>(1);
 
-  constructor(private router: Router, private ProductService: ProductService) {}
+  constructor(
+    private router: Router,
+    private ProductService: ProductService,
+    private queryService: QueryService,
+    private filterService: FilterService
+  ) {}
 
   private _searchDetails: string = '';
 
@@ -53,6 +61,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onSearch(): void {
+    this.router.navigate(['search', this._searchDetails]);
+    this.queryService.setQueryData(this._searchDetails);
+    this.filterService.resetCategoryData();
+    this.filterService.resetStatusData();
+    this.filterService.resetReleaseDateData();
     this.router.navigate(['search', this._searchDetails]);
     this.toggleSearch();
   }
