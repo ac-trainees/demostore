@@ -27,26 +27,26 @@
 
             <div *ngIf="configurator !== 'trial'">
               <h3>Subscription period:</h3>
-              <mat-form-field class="example-user-input" appearance="fill">
+              <mat-form-field appearance="fill">
                 <mat-label>Select Duration</mat-label>
-                <input formControlName="duration" matInput type="number" min="1" max="12">
+                <input formControlName="duration" matInput type="number" min="1" max="24">
                 <mat-hint>months</mat-hint>
               </mat-form-field>
             </div>
 
             <div *ngIf="configurator === 'trial'">
               <h3>Subscription period:</h3>
-              <mat-form-field class="example-user-input" appearance="fill">
+              <mat-form-field appearance="fill">
                 <mat-label>Select Duration</mat-label>
-                <input formControlName="duration" matInput type="number" min="1" max="6">
-                <mat-hint>max 6 months</mat-hint>
+                <input formControlName="duration" matInput type="number" min="6" max="6">
+                <mat-hint>6 months</mat-hint>
               </mat-form-field>
             </div>
 
 
             <div class="support" *ngIf="configurator !== 'free' && configurator !== 'trial'">
               <h3 class="txt-support">Support Service: </h3>
-              <mat-checkbox formControlName="support" class="example-margin">
+              <mat-checkbox formControlName="support">
                 Support
               </mat-checkbox>
             </div>

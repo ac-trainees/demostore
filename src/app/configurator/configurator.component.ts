@@ -45,12 +45,16 @@ export class ConfiguratorComponent implements OnInit {
 
   submit() {
     if (this.configuratorForm.valid) {
-      this.configuratorService.addToCart({...this.configuratorForm.value, productId: this.productId, cta: this.configurator, country: 'example-country'})
-        .subscribe(data => {
+      this.configuratorService.addToCart({
+        ...this.configuratorForm.value,
+        productId: this.productId,
+        cta: this.configurator,
+        country: 'example-country'
+      }).subscribe(data => {
         console.log(data)
-        })
+      })
     } else {
-      console.log('Please fill out all required fields')
+      alert('Please fill out all required fields');
     }
   }
 

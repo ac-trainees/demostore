@@ -1,4 +1,4 @@
-$line-color: rgb(186, 186, 186);
+$line-color: rgb(141, 140, 140);
 
 .margin-top {
   margin-top: 100px;
@@ -36,6 +36,11 @@ $line-color: rgb(186, 186, 186);
   h3, .mat-checkbox {
     margin-top: 30px;
   }
+}
+.line {
+  width: 236px;
+  height: 1px;
+  background-color: $line-color;
 }
 
 

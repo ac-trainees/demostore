@@ -5,7 +5,7 @@ import { ProductService } from '../../api/product.service';
 import { IDetailedProduct } from '../../Interface/detailedproduct';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfiguratorComponent } from 'src/app/configurator/configurator.component';
+import { ConfiguratorComponent } from '../../configurator/configurator.component';
 
 @Component({
   selector: 'app-product-detail',
@@ -29,6 +29,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
   openConfig(param: string): void {
     const dialogRef = this.dialog.open(ConfiguratorComponent, {
+      disableClose: true,
       width: '70%',
       data: {
         id: this.productId,
