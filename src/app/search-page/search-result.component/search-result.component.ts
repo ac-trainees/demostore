@@ -8,7 +8,7 @@ import { IProduct } from "src/app/Interface/products";
   styleUrls: ['./search-result.component.scss'],
 })
 
-export class SearchResultComponent implements OnInit {
+export class SearchResultComponent {
 
   @Input() visibleProducts: IProduct[] = [];
 
@@ -16,15 +16,7 @@ export class SearchResultComponent implements OnInit {
 
   constructor(private router: Router) {}
 
-  onResize(event: any) {
-    this.breakPoint = (event.target.innerWidth < 1200) ? 2 : 3;
-  }
-
   toProductDetailPage(id: number): void {
     this.router.navigate(["product", id]);
-  }
-
-  ngOnInit(): void {
-    this.breakPoint = (window.innerWidth < 1200) ? 2 : 3;
   }
 }
