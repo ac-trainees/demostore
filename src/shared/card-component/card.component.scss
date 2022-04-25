@@ -5,10 +5,13 @@
   margin: 0 auto;
   height: 90%;
   width: 90%;
-  transition: 1s ease;
+  box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px;
+  transition: 0.5s ease;
 }
 .card:hover {
-  transform: scale(0.97);
+  box-shadow: rgba(0, 0, 0, 0.22) 0px 19px 43px;
+  transform: translate3d(0px, -1px, 0px);
+  cursor: pointer;
 }
 .mat-card {
   & .mat-card-title {
