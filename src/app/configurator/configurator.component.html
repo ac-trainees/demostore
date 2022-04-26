@@ -1,6 +1,12 @@
 <div class="dialog-window">
 
-  <h1 mat-dialog-title>{{configurator | uppercase }} - ID {{productId}}</h1>
+  <h1 mat-dialog-title>{{cta | uppercase }} - ID {{productId}}</h1>
+<!--
+  <formly-form [fields]="configuratorFields" [form]="configuratorForm" [model]="configuratorModel">
+    <button mat-flat-button color="warn" mat-dialog-close>Cancel</button>
+    <button type="submit" mat-flat-button color="primary" [mat-dialog-close]="true" cdkFocusInitial
+      submit-button></button>
+  </formly-form> -->
 
   <form [formGroup]="configuratorForm" (ngSubmit)="submit()">
     <formly-form [form]="configuratorForm">
@@ -25,7 +31,7 @@
               </mat-form-field>
             </div>
 
-            <div *ngIf="configurator !== 'trial'">
+            <div *ngIf="cta !== 'trial'">
               <h3>Subscription period:</h3>
               <mat-form-field appearance="fill">
                 <mat-label>Select Duration</mat-label>
@@ -34,7 +40,7 @@
               </mat-form-field>
             </div>
 
-            <div *ngIf="configurator === 'trial'">
+            <div *ngIf="cta === 'trial'">
               <h3>Subscription period:</h3>
               <mat-form-field appearance="fill">
                 <mat-label>Select Duration</mat-label>
@@ -44,7 +50,7 @@
             </div>
 
 
-            <div class="support" *ngIf="configurator !== 'free' && configurator !== 'trial'">
+            <div class="support" *ngIf="cta !== 'free' && cta !== 'trial'">
               <h3 class="txt-support">Support Service: </h3>
               <mat-checkbox formControlName="support">
                 Support

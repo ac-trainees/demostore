@@ -4,6 +4,7 @@ import { ConfiguratorService } from '../api/configurator.service';
 import { IProduct } from '../Interface/products';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
+import { CountryService } from '../services/country.service';
 
 
 @Component({
@@ -14,7 +15,9 @@ import { FormGroup } from '@angular/forms';
 
 export class ConfiguratorComponent implements OnInit {
 
-  configurator: string | undefined;
+  cta: string | undefined;
+
+  country: string | undefined;
 
   configuratorForm = new FormGroup({
     date: new FormControl(),
@@ -32,12 +35,27 @@ export class ConfiguratorComponent implements OnInit {
     private configuratorService: ConfiguratorService,
     private dialogRef: MatDialogRef<ConfiguratorComponent>,
     @Inject(MAT_DIALOG_DATA) data: any,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    public countryService: CountryService) {
 
       this.productId = data.id;
       this.selectedProduct = data.product;
-      this.configurator = data.config;
+      this.cta = data.config;
   }
+
+ /*  public configuratorModel = {
+
+  }
+  public  configuratorFields: FormlyFieldConfig[] = [
+    {
+    key: 'support',
+    type: 'checkbox',
+    templateOptions: {
+        label: 'Support Service:',
+        required: true,
+      }
+    }
+  ] */
 
   onCancelClick(): void {
     this.dialogRef.close();
@@ -48,8 +66,8 @@ export class ConfiguratorComponent implements OnInit {
       this.configuratorService.addToCart({
         ...this.configuratorForm.value,
         productId: this.productId,
-        cta: this.configurator,
-        country: 'example-country'
+        cta: this.cta,
+        country: this.country
       }).subscribe(data => {
         console.log(data)
       })
@@ -67,6 +85,7 @@ export class ConfiguratorComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.country = this.countryService.country;
     this.formValidation();
   }
 }
