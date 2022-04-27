@@ -1,4 +1,8 @@
-<mat-toolbar class="sticky" [color]="currentColor" [class.mat-elevation-z8]="true">
+<mat-toolbar
+  class="sticky"
+  [color]="currentColor"
+  [class.mat-elevation-z8]="true"
+>
   <div *ngIf="!isHidden" class="countryAndTitle">
     <app-country-selector> </app-country-selector>
     <a routerLink="/">Demostore</a>
@@ -24,7 +28,7 @@
     <mat-icon
       aria-hidden="false"
       aria-label="Example home icon"
-      (click)="toggleSearch()"
+      (click)="onSearch()"
       [color]="isHidden ? mainColor : offColor"
     >
       search
