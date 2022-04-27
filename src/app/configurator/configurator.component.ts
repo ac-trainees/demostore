@@ -5,6 +5,7 @@ import { IProduct } from '../Interface/products';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { CountryService } from '../services/country.service';
+import { IConfigForm } from '../Interface/configForm';
 
 
 @Component({
@@ -15,9 +16,9 @@ import { CountryService } from '../services/country.service';
 
 export class ConfiguratorComponent implements OnInit {
 
-  cta: string | undefined;
+  cta!: string;
 
-  country: string | undefined;
+  country!: string;
 
   configuratorForm = new FormGroup({
     date: new FormControl(),
@@ -25,7 +26,7 @@ export class ConfiguratorComponent implements OnInit {
     support: new FormControl()
   });
 
-  productId: number | undefined;
+  productId!: number;
 
   selectedProduct!: IProduct;
 
@@ -48,13 +49,14 @@ export class ConfiguratorComponent implements OnInit {
   }
 
   submit() {
+    const formValue: IConfigForm = {
+      ...this.configuratorForm.value,
+      productId: this.productId,
+      country: this.country,
+      cta: this.cta
+    }
     if (this.configuratorForm.valid) {
-      this.configuratorService.addToCart({
-        ...this.configuratorForm.value,
-        productId: this.productId,
-        cta: this.cta,
-        country: this.country
-      }).subscribe(data => {
+      this.configuratorService.addToCart(formValue).subscribe(data => {
         console.log(data)
       })
     } else {
