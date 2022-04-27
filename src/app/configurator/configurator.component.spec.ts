@@ -23,7 +23,7 @@ describe('ConfiguratorComponent', () => {
         MatDatepickerModule,
         MatNativeDateModule,
         MatCheckboxModule,
-        ReactiveFormsModule,
+        ReactiveFormsModule
       ],
       declarations: [ConfiguratorComponent],
       providers: [
@@ -42,6 +42,7 @@ describe('ConfiguratorComponent', () => {
     fixture = TestBed.createComponent(ConfiguratorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    component.ngOnInit();
 
   });
 
@@ -49,4 +50,35 @@ describe('ConfiguratorComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should receive a value', () => {
+    expect(component.country).toBeTruthy();
+  });
+
+  it('form invalid when empty', () => {
+    expect(component.configuratorForm.valid).toBeFalsy();
+  });
+
+  it('date field should initially be invalid', () => {
+    let date = component.configuratorForm.controls['date'];
+    expect(date.valid).toBeFalsy();
+  });
+
+  it('duration field should initially be invalid', () => {
+    let duration = component.configuratorForm.controls['duration'];
+    expect(duration.valid).toBeFalsy();
+  });
+
+  it('date field validity', () => {
+    let errors;
+    let date = component.configuratorForm.controls['date'];
+    errors = date.errors || {};
+    expect(errors['required']).toBeTruthy();
+  });
+
+  it('form is valid when requiered fields are filled out', () => {
+    expect(component.configuratorForm.valid).toBeFalsy();
+    component.configuratorForm.controls['date'].setValue("2022-04-27T22:00:00.000Z");
+    component.configuratorForm.controls['duration'].setValue(6);
+    expect(component.configuratorForm.valid).toBeTruthy();
+  });
 });
