@@ -1,15 +1,8 @@
 <div class="dialog-window">
 
   <h1 mat-dialog-title>{{cta | uppercase }} - ID {{productId}}</h1>
-<!--
-  <formly-form [fields]="configuratorFields" [form]="configuratorForm" [model]="configuratorModel">
-    <button mat-flat-button color="warn" mat-dialog-close>Cancel</button>
-    <button type="submit" mat-flat-button color="primary" [mat-dialog-close]="true" cdkFocusInitial
-      submit-button></button>
-  </formly-form> -->
 
   <form [formGroup]="configuratorForm" (ngSubmit)="submit()">
-    <formly-form [form]="configuratorForm">
 
       <mat-dialog-content class="mat-typography">
         <div class="wrapper">
@@ -77,6 +70,5 @@
           Buy now</button>
 
       </mat-dialog-actions>
-    </formly-form>
   </form>
 </div>

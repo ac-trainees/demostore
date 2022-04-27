@@ -43,20 +43,6 @@ export class ConfiguratorComponent implements OnInit {
       this.cta = data.config;
   }
 
- /*  public configuratorModel = {
-
-  }
-  public  configuratorFields: FormlyFieldConfig[] = [
-    {
-    key: 'support',
-    type: 'checkbox',
-    templateOptions: {
-        label: 'Support Service:',
-        required: true,
-      }
-    }
-  ] */
-
   onCancelClick(): void {
     this.dialogRef.close();
   }
