@@ -36,6 +36,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
 import { MatTabsModule } from '@angular/material/tabs';
+import { TextHighlightPipe } from 'src/shared/pipes/text-highlight.pipe';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     FilterComponent,
     SortComponent,
     CardComponent,
-    SearchResultComponent
+    SearchResultComponent,
+    TextHighlightPipe
   ],
   imports: [
     BrowserModule,

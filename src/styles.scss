@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+$highlight-color: yellow;
 
 html, body { height: fit-content; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
@@ -8,5 +9,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   position: -webkit-sticky;
   top: 0;
   z-index: 1000;
+}
+.highlight {
+  background-color: $highlight-color;
 }
 

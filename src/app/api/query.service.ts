@@ -15,5 +15,4 @@ export class QueryService {
   setQueryData(newValue: string) {
     this.querySubject.next(newValue)
   }
-
 }
