@@ -33,6 +33,7 @@ import { FilterService } from '../services/filter.services';
     ]),
   ],
 })
+
 export class HeaderComponent implements OnInit, OnDestroy {
   isHidden: boolean = false;
   currentColor: string = 'primary';
@@ -61,7 +62,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onSearch(): void {
-    this.router.navigate(['search', this._searchDetails]);
     this.queryService.setQueryData(this._searchDetails);
     this.filterService.resetCategoryData();
     this.filterService.resetStatusData();

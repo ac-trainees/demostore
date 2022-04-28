@@ -1,1 +1,74 @@
-<h1>Configurator works!</h1>
+<div class="dialog-window">
+
+  <h1 mat-dialog-title>{{cta | uppercase }} - ID {{productId}}</h1>
+
+  <form [formGroup]="configuratorForm" (ngSubmit)="submit()">
+
+      <mat-dialog-content class="mat-typography">
+        <div class="wrapper">
+
+          <div class="column">
+
+            <div>
+              <h3>Start date: </h3>
+              <mat-form-field appearance="fill">
+                <mat-label>Select Date</mat-label>
+                <input formControlName="date" matInput [min]="minDate" matInput [matDatepicker]="datepicker">
+                <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                <mat-datepicker #datepicker>
+                  <mat-datepicker-actions>
+                    <button mat-button color="warn" matDatepickerCancel>Cancel</button>
+                    <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+                  </mat-datepicker-actions>
+                </mat-datepicker>
+              </mat-form-field>
+            </div>
+
+            <div *ngIf="cta !== 'trial'">
+              <h3>Subscription period:</h3>
+              <mat-form-field appearance="fill">
+                <mat-label>Select Duration</mat-label>
+                <input formControlName="duration" matInput type="number" min="1" max="24">
+                <mat-hint>months</mat-hint>
+              </mat-form-field>
+            </div>
+
+            <div *ngIf="cta === 'trial'">
+              <h3>Subscription period:</h3>
+              <mat-form-field appearance="fill">
+                <mat-label>Select Duration</mat-label>
+                <input formControlName="duration" matInput type="number" min="6" max="6">
+                <mat-hint>6 months</mat-hint>
+              </mat-form-field>
+            </div>
+
+
+            <div class="support" *ngIf="cta !== 'free' && cta !== 'trial'">
+              <h3 class="txt-support">Support Service: </h3>
+              <mat-checkbox formControlName="support">
+                Support
+              </mat-checkbox>
+            </div>
+
+          </div>
+
+          <div class="devider">
+            <div class="vertical-line"></div>
+          </div>
+
+          <div class="column">
+            <div>Price</div>
+          </div>
+
+        </div>
+      </mat-dialog-content>
+
+      <mat-dialog-actions fxLayout="row" fxLayoutAlign="space-around center">
+
+        <button mat-flat-button color="warn" mat-dialog-close>Cancel</button>
+        <button type="submit" mat-flat-button color="primary" [mat-dialog-close]="true" cdkFocusInitial submit-button>
+          Buy now</button>
+
+      </mat-dialog-actions>
+  </form>
+</div>

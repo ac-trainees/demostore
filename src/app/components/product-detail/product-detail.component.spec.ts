@@ -3,9 +3,12 @@ import { ProductDetailComponent } from './product-detail.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MatTab, MatTabGroup } from '@angular/material/tabs';
+import { MatTab, MatTabGroup, MatTabsModule } from '@angular/material/tabs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MockComponents } from 'ng-mocks';
+import { MatDialogModule } from '@angular/material/dialog';
+import { FormBuilder } from '@angular/forms';
+
 
 const mockedActivatedRoute: any = {
   snapshot: { paramMap: { get: jest.fn() } },
@@ -24,6 +27,7 @@ describe('ProductDetailComponent', () => {
         HttpClientTestingModule,
         RouterTestingModule,
         BrowserAnimationsModule,
+        MatDialogModule,
       ],
       declarations: [
         ProductDetailComponent,
@@ -34,7 +38,10 @@ describe('ProductDetailComponent', () => {
           provide: ActivatedRoute,
           useValue: mockedActivatedRoute,
         },
-        { provide: Router, useValue: router },
+        { provide: Router,
+          useValue: router
+        },
+        FormBuilder
       ],
     }).compileComponents();
 
@@ -54,10 +61,5 @@ describe('ProductDetailComponent', () => {
     expect(component.getButtonText('trial')).toBe('Free trial');
     expect(component.getButtonText('free')).toBe('Free licence');
     expect(component.getButtonText('')).toBe('');
-  });
-
-  it('should call onSearch', () => {
-    component.openConfig('');
-    expect(router.navigate).toHaveBeenCalled;
   });
 });
