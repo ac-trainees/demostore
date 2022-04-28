@@ -1,7 +1,7 @@
-<mat-grid-list [cols]="breakPoint" rowHeight="8:9.3" gutterSize="20px" (window:resize)="onResize($event)">
-  <mat-grid-tile *ngFor="let product of visibleProducts" (click)='toProductDetailPage(product.id)' data-id="product.id">
+<div class="wrapper">
+  <div class="card-wrapper" *ngFor="let product of visibleProducts" (click)='toProductDetailPage(product.id)' data-id="product.id">
 
     <app-card [product]="product"></app-card>
 
-  </mat-grid-tile>
-</mat-grid-list>
+  </div>
+</div>
