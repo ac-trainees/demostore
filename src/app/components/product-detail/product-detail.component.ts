@@ -4,6 +4,8 @@ import { ReplaySubject, takeUntil } from 'rxjs';
 import { ProductService } from '../../api/product.service';
 import { IDetailedProduct } from '../../Interface/detailedproduct';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfiguratorComponent } from '../../configurator/configurator.component';
 
 @Component({
   selector: 'app-product-detail',
@@ -11,6 +13,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./product-detail.component.scss'],
 })
 export class ProductDetailComponent implements OnInit, OnDestroy {
+
+  productId: number | undefined;
+
   product!: IDetailedProduct | undefined;
 
   destroy$ = new ReplaySubject<void>(1);
@@ -18,11 +23,24 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    public productService: ProductService
-  ) {}
+    public productService: ProductService,
+    public dialog: MatDialog
+  ) { }
 
   openConfig(param: string): void {
-    this.router.navigate(['configurator', param]);
+    const dialogRef = this.dialog.open(ConfiguratorComponent, {
+      disableClose: true,
+      width: '70%',
+      data: {
+        id: this.productId,
+        product: this.product,
+        config: param
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.router.navigateByUrl(`product/${this.productId}`);
+    });
   }
 
   getButtonText(param: string): string {
@@ -49,6 +67,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (data) => {
           this.product = data;
+          this.productId = data?.id;
         },
       });
   }

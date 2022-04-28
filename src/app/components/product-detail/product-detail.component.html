@@ -41,7 +41,7 @@
 
 <div class="buttonsArea" *ngIf="product">
   <div *ngFor="let action of product.callToAction">
-    <button mat-raised-button color="primary" (click)="openConfig(action)">
+    <button mat-raised-button color="primary" [routerLink]="['configurator', action]" (click)="openConfig(action)">
       {{ getButtonText(action) }}
     </button>
   </div>

@@ -18,7 +18,6 @@ export class CardComponent implements OnInit {
 
   private readonly destroy$ = new Subject<void>();
 
-
   constructor(private queryService: QueryService) {}
 
   ngOnInit(): void {

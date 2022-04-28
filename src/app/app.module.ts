@@ -29,7 +29,14 @@ import { SortComponent } from './search-page/sort-component/sort.component';
 import { CardComponent } from 'src/shared/card-component/card.component';
 import { SearchResultComponent } from './search-page/search-result.component/search-result.component';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from "@angular/material/dialog";
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { FormlyModule } from '@ngx-formly/core';
+import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
 import { MatTabsModule } from '@angular/material/tabs';
+import { TextHighlightPipe } from 'src/shared/pipes/text-highlight.pipe';
 
 @NgModule({
   declarations: [
@@ -43,7 +50,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     FilterComponent,
     SortComponent,
     CardComponent,
-    SearchResultComponent
+    SearchResultComponent,
+    TextHighlightPipe
   ],
   imports: [
     BrowserModule,
@@ -67,16 +75,30 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatGridListModule,
     FlexLayoutModule,
     MatIconModule,
+    MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCheckboxModule,
+    ReactiveFormsModule,
+    FormlyBootstrapModule,
+    FormlyModule,
     MatTabsModule,
     RouterModule.forRoot([
       { path: '', component: LandingPageComponent },
       { path: 'search', component: SearchComponent },
       { path: 'search/:query', component: SearchComponent },
-      { path: 'product/:id', component: ProductDetailComponent },
-      { path: 'configurator/:id', component: ConfiguratorComponent },
+      { path: 'product/:id', component: ProductDetailComponent,
+        children: [
+          {
+            path: 'configurator/:param',
+            component: ConfiguratorComponent
+          }
+        ]
+      },
     ]),
   ],
   providers: [],
   bootstrap: [HeaderComponent, AppComponent],
+  entryComponents: [ConfiguratorComponent, ProductDetailComponent]
 })
 export class AppModule {}
