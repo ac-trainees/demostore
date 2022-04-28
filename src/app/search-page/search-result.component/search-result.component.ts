@@ -12,8 +12,6 @@ export class SearchResultComponent {
 
   @Input() visibleProducts: IProduct[] = [];
 
-  searchWord!: string;
-
   breakPoint!: number;
 
   constructor(private router: Router) {}

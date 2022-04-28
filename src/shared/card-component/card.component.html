@@ -1,12 +1,12 @@
 <mat-card class="card">
   <mat-card-header>
     <mat-card-title>
-      <p [innerHTML]="product.title | textHighlight : searchWord"></p>
+      <p [innerHTML]="product.title | textHighlight : searchQuery"></p>
     </mat-card-title>
   </mat-card-header>
   <img mat-card-image [src]="product.image">
   <mat-card-content>
-    <p [innerHTML]="product.teaser | textHighlight : searchWord"></p>
+    <p [innerHTML]="product.teaser | textHighlight : searchQuery"></p>
   </mat-card-content>
   <mat-card-actions>
   </mat-card-actions>

@@ -14,7 +14,7 @@ export class CardComponent implements OnInit {
 
   @Input() product!: IProduct;
 
-  searchWord!: string;
+  searchQuery!: string;
 
   private readonly destroy$ = new Subject<void>();
 
@@ -24,7 +24,7 @@ export class CardComponent implements OnInit {
     this.queryService.queryData$
       .pipe(takeUntil(this.destroy$))
       .subscribe(data =>
-        this.searchWord = data
+        this.searchQuery = data
       )
   }
 }
